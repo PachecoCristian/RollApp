@@ -2,6 +2,7 @@ from fractions import Fraction
 import customtkinter as ctk
 from configuracion import *
 
+# Ventana de Aplicaciones
 class Ventana_Probalidades(ctk.CTkFrame):
     def __init__(ventana, master):
         super().__init__(master= master)
@@ -53,7 +54,7 @@ class Ventana_Probalidades(ctk.CTkFrame):
 
         ventana.resultado.set(f"Probabilidad: {resultado}%")
         
-
+# Modulos / Metodos
 def expode_prob(valor, dado):
 
     """ 
