@@ -1,4 +1,58 @@
 from fractions import Fraction
+import customtkinter as ctk
+from configuracion import *
+
+class Ventana_Probalidades(ctk.CTkFrame):
+    def __init__(ventana, master):
+        super().__init__(master= master)
+
+        # Crear la (Sub-ventana)
+        frame = ctk.CTkFrame(ventana)
+        frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        frame.columnconfigure((0,1,2), weight=1, uniform="a")
+        frame.rowconfigure((0,1,2,3,4), weight=1, uniform="a")
+
+        # Datos
+        ventana.valor = ctk.StringVar(value= 4)
+        ventana.dado1 = ctk.StringVar(value= SWADE_DADOS[0])
+        ventana.dado2 = ctk.StringVar(value= SWADE_DADOS[0])
+        ventana.extra = ctk.StringVar(value= 0)
+        ventana.resultado = ctk.StringVar(value= "Probabilidad: ")
+
+        # Componentes
+        ctk.CTkLabel(frame, text= "Valor Objetivo").grid(column=0, row=0, padx=10, pady=5)
+        ctk.CTkEntry(frame, textvariable=  ventana.valor, insertofftime=1000).grid(column=2, row=0, padx=10, pady=5)
+
+        ctk.CTkLabel(frame, text=  "Dado 1").grid(column=0, row=1, padx=10, pady=5)
+        ctk.CTkLabel(frame, text=  "Dado 2").grid(column=1, row=1, padx=10, pady=5)
+        ctk.CTkLabel(frame, text=  "Modificador").grid(column=2, row=1, padx=10, pady=5)
+
+        ctk.CTkComboBox(frame, values= SWADE_DADOS, variable= ventana.dado1).grid(column=0, row=2, padx=10, pady=5)
+        ctk.CTkComboBox(frame, values= SWADE_DADOS, variable= ventana.dado2).grid(column=1, row=2, padx=10, pady=5)
+        ctk.CTkEntry(frame, textvariable=  ventana.extra, insertofftime=1000).grid(column=2, row=2, padx=10, pady=5)
+
+        ctk.CTkButton(frame, text="Calcular", command=ventana.calcular_prob).grid(column=0, columnspan=3, row=3, padx=10, pady=5)
+
+        ctk.CTkLabel(frame, textvariable= ventana.resultado).grid(column=0, columnspan=3, row=4, padx=10, pady=5)
+
+    def calcular_prob(ventana):
+        resultado = 0
+        valor= int(ventana.valor.get())
+        dado1= 0 if ventana.dado1.get() == SWADE_DADOS[0] else int(ventana.dado1.get().replace("D",""))
+        dado2= 0 if ventana.dado2.get() == SWADE_DADOS[0] else int(ventana.dado2.get().replace("D",""))
+        extra= int(ventana.extra.get())
+
+        if dado1 != 0:
+            resultado += expode_prob((valor-extra), dado1)
+        
+        if dado2 != 0:
+            resultado += expode_prob((valor-extra), dado2)
+
+        resultado = round(resultado*100,2)
+
+        ventana.resultado.set(f"Probabilidad: {resultado}%")
+        
 
 def expode_prob(valor, dado):
 
@@ -8,10 +62,10 @@ def expode_prob(valor, dado):
     (8,6): 5/6 + (1/6 x* 1/6) = 5/6 + 1/36 = 30/36 + 1/36 = 31/36 = 
     """    
     div,resto= divmod(valor, dado)
-    resultado= ""
 
     # Posibilidades de fallar Como Texto
     """ 
+    resultado= ""
     if div <= 0:
         resultado+= str(Fraction(1-(resto/dado)))
     else : 
