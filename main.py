@@ -6,7 +6,9 @@ import any_code as anyR
 class App(ctk.CTk):
     def __init__(app, titulo, tamaño):
         super().__init__()
+    # Propiedades de la Ventana
         app.title(titulo)
+        app.iconbitmap("d20-highlight.ico")
         #self.geometry(f"{tamaño[0]}x{tamaño[1]}")
 
     # Definir la grid
@@ -62,6 +64,5 @@ class Frame_Principal(ctk.CTkFrame):
 # Ejecutar el codigo para crear la ventanas
 if __name__== "__main__":
     App(titulo="Ayudas de Roll",tamaño=(500,500)) 
-
 
 
