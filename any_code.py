@@ -74,6 +74,34 @@ class Ventana_Nombre(ctk.CTkFrame):
             if regex.match(i) != None:
                 ventana.botones.children[i].pack_forget()
 
+class Ventana_Lugar(ctk.CTkFrame):
+    def __init__(ventana, master):
+        super().__init__(master= master)
+
+        # Crear la (Sub-ventana)
+        frame = ctk.CTkFrame(ventana)
+        frame.place(relx=0.5, rely=0.5, anchor="center")
+        # Datos
+        ventana.nombre = ctk.StringVar(value="")
+        # Componentes
+        ctk.CTkButton(frame, text= "Lugar", command= ventana.nombre_lugar).pack()
+        ctk.CTkLabel(frame, textvariable= ventana.nombre, font=ctk.CTkFont(size=20)).pack(fill="x")
+
+    def nombre_lugar(ventana):
+        nombre= RANDOM_PLACES_NAME[randint(0,len(RANDOM_PLACES_NAME)-1)]
+
+        reg_ex_P= compile(r".*\[Place\].*",dot)     
+        if reg_ex_P.match(nombre) != None:
+            nombre= nombre.replace("[Place]",f"[{RANDOM_PLACES_ADJ[randint(0,len(RANDOM_PLACES_ADJ)-1)][0]}]")
+        reg_ex_A= compile(r".*\[Adjective\].*",dot)
+        if reg_ex_A.match(nombre) != None:
+            nombre= nombre.replace("[Adjective]",f"[{RANDOM_PLACES_ADJ[randint(0,len(RANDOM_PLACES_ADJ)-1)][1]}]")
+        reg_ex_N= compile(r".*\[Noun\].*",dot)
+        if reg_ex_N.match(nombre) != None:
+            nombre= nombre.replace("[Noun]",f"[{RANDOM_PLACES_ADJ[randint(0,len(RANDOM_PLACES_ADJ)-1)][2]}]")
+        
+        ventana.nombre.set(f"Nombre: {nombre}")
+       
 
 def letra_aleatoria():
     rango = len(RANDOM_NAME)-1
