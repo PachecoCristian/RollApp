@@ -88,7 +88,7 @@ def expode_prob(valor, dado):
     # Posibilidad de fallar
     fallo=0
     if div <= 0:
-        fallo+= (resto/dado)
+        fallo+= ((resto-1)/dado)
     else : 
         i=0
         while i <= div:
