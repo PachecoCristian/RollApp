@@ -1,8 +1,9 @@
-from fractions import Fraction
 import customtkinter as ctk
 from configuracion import *
 
-# Ventana de Aplicaciones
+from fractions import Fraction
+
+# Ventanas de Aplicaciones
 class Ventana_Probalidades(ctk.CTkFrame):
     def __init__(ventana, master):
         super().__init__(master= master)
@@ -103,7 +104,7 @@ def expode_prob(valor, dado):
     # Las posibilidades de fallar son inversamente proporcionales a las de acertar
     return (1 - fallo)
         
-
+# Ejecución pruebas
 if __name__== "__main__":
     """     
     #expode_prob(4,8)       # OK: 1/2
