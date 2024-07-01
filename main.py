@@ -10,7 +10,7 @@ class App(ctk.CTk):
     # Propiedades de la Ventana
         app.title(titulo)
         app.iconbitmap("d20-highlight.ico")
-        #self.geometry(f"{tamaño[0]}x{tamaño[1]}")
+        app.geometry(f"{tamaño[0]}x{tamaño[1]}")
 
     # Definir la grid
         app.columnconfigure(0, weight=1, uniform="a")
@@ -65,6 +65,4 @@ class Frame_Principal(ctk.CTkFrame):
 
 # Ejecutar el codigo para crear la ventanas
 if __name__== "__main__":
-    App(titulo="Ayudas de Roll",tamaño=(500,500)) 
-
-
+    App(titulo="Ayudas de Roll",tamaño=(800,500)) 
