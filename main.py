@@ -1,4 +1,5 @@
 import customtkinter as ctk
+
 from configuracion import *
 import swade_code as sw
 import any_code as anyR

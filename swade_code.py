@@ -15,10 +15,10 @@ class Ventana_Probalidades(ctk.CTkFrame):
         frame.rowconfigure((0,1,2,3,4), weight=1, uniform="a")
 
         # Datos
-        ventana.valor = ctk.StringVar(value= 4)
+        ventana.valor = ctk.StringVar(value= "4")
         ventana.dado1 = ctk.StringVar(value= SWADE_DADOS[0])
         ventana.dado2 = ctk.StringVar(value= SWADE_DADOS[0])
-        ventana.extra = ctk.StringVar(value= 0)
+        ventana.extra = ctk.StringVar(value= "0")
         ventana.resultado = ctk.StringVar(value= "Probabilidad: ")
 
         # Componentes
