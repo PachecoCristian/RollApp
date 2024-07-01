@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from configuracion import *
-import swade_code as SW
+import swade_code as sw
+import any_code as anyR
 
 class App(ctk.CTk):
     def __init__(app, titulo, tamaño):
@@ -14,10 +15,9 @@ class App(ctk.CTk):
         app.rowconfigure(0, weight=1, uniform="a")
 
     #Componentes
-            # Buscar una manera mejor de construir las ventanas
         lista_menu= {
-            "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(SW.Ventana_Probalidades),
-            "Otra Opción": lambda: print("Opción"),
+            "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
+            "Nombre Aleatorio": lambda: app.cambiar_ventana(anyR.Ventana_Nombre),
         }
         Frame_Menu(app,opciones=lista_menu).colocar()
 
@@ -28,6 +28,10 @@ class App(ctk.CTk):
         app.mainloop()
     
     def cambiar_ventana(app, funcion):
+        # Eliminar las ventas que estubieran antes
+        for i in app.grid_slaves(column=1, row=0) :
+            i.grid_remove()
+
         ventana = funcion(app)
         ventana.grid(column=1, row=0, sticky="snew")
         
