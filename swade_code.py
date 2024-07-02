@@ -1,6 +1,8 @@
 from configuracion import *
 
 from fractions import Fraction
+import json
+import os
       
 # Modulos / Metodos
 def expode_prob(valor, dado):
@@ -50,7 +52,72 @@ def expode_prob(valor, dado):
 
     # Las posibilidades de fallar son inversamente proporcionales a las de acertar
     return (1 - fallo)
-        
+
+def abrir_ficha(ruta):
+    es_comodin= False
+    # Abrir fichero
+    try:
+        fichero = open(ruta, encoding="utf8")
+    except:
+        raise Exception("Ruta de archivo incorrecta")
+    # Convertir el fichero en json
+    try:
+        fichero = json.load(fichero)
+    except:
+        raise Exception("El archivo no es un JSON") 
+   
+    # Ver si es ficha de personaje
+    if fichero["_stats"]["systemId"] != "swade":
+        raise Exception("El archivo no es una ficha de personaje de Swade") 
+    
+    # Ver si es personaje con dado salvaje
+    if fichero["type"] == "character" or (fichero["type"]== "npc" and fichero["system"]["wildcard"]):
+        es_comodin= True
+    
+    return (fichero, es_comodin)
+   
+
+def cambiar_dados(ficha):
+    # Datos
+    datos={
+    "agility": [0,0],
+    "smarts": [0,0],
+    "spirit": [0,0],
+    "strength": [0,0],
+    "vigor": [0,0]
+    }
+    datos["agility"][0]= ficha["system"]["attributes"]["agility"]["die"]["sides"]
+    datos["agility"][1]= ficha["system"]["attributes"]["agility"]["die"]["modifier"]
+    datos["smarts"][0]= ficha["system"]["attributes"]["smarts"]["die"]["sides"]
+    datos["smarts"][1]= ficha["system"]["attributes"]["smarts"]["die"]["modifier"]
+    datos["spirit"][0]= ficha["system"]["attributes"]["spirit"]["die"]["sides"]
+    datos["spirit"][1]= ficha["system"]["attributes"]["spirit"]["die"]["modifier"]
+    datos["strength"][0]= ficha["system"]["attributes"]["strength"]["die"]["sides"]
+    datos["strength"][1]= ficha["system"]["attributes"]["strength"]["die"]["modifier"]
+    datos["vigor"][0]= ficha["system"]["attributes"]["vigor"]["die"]["sides"]
+    datos["vigor"][1]= ficha["system"]["attributes"]["vigor"]["die"]["modifier"]
+
+    # Recorrer todos los "Objetos" de la ficha, selecionar las Habilidades, y cambiar el valor
+    for i in ficha["items"]:
+        if i["type"] == "skill": 
+            try:
+                i["system"]["wild-die"]["sides"] = datos[i["system"]["attribute"]][0]
+            except:
+                i["system"]["wild-die"]["sides"] = 6
+
+    return ficha
+
+def guardar_ficha(ficha, ruta):
+    ruta_resultado= f"{ruta}\\{ficha["name"]}(Dados).json"
+    ruta_resultado = os.path.abspath(ruta_resultado)
+    with open(ruta_resultado,"w", encoding='utf-8') as f:
+        json.dump(ficha, f, ensure_ascii=False, indent=4)
+
+    # resultado
+    return f"✅ {ruta_resultado} Completado correctamente"
+
+    
+
 # Ejecución pruebas
 if __name__== "__main__":
     """     
