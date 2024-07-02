@@ -1,8 +1,8 @@
 import customtkinter as ctk
 
 from configuracion import *
-import swade_code as sw
-import any_code as anyR
+import swade_ventanas as sw
+import any_ventanas as anyr
 
 class App(ctk.CTk):
     def __init__(app, titulo, tamaño):
@@ -19,8 +19,8 @@ class App(ctk.CTk):
 
     #Componentes
         lista_menu= {
-            "Nombre Aleatorio": lambda: app.cambiar_ventana(anyR.Ventana_Nombre),
-            "Lugar Aleatorio": lambda: app.cambiar_ventana(anyR.Ventana_Lugar),
+            "Nombre Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Nombre),
+            "Lugar Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Lugar),
             "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
         }
         Frame_Menu(app,opciones=lista_menu).colocar()
