@@ -3,6 +3,7 @@ from configuracion import *
 from fractions import Fraction
 import json
 import os
+from re import compile, S as dot
       
 # Modulos / Metodos
 def expode_prob(valor, dado):
@@ -98,10 +99,24 @@ def cambiar_dados(ficha):
     datos["vigor"][1]= ficha["system"]["attributes"]["vigor"]["die"]["modifier"]
 
     # Recorrer todos los "Objetos" de la ficha, ver si laguno contiene la ventaja
+    modifica_dado = False
     for i in ficha["items"]:
-        print(i)
-        #WILD_DICE_EDGES
-        pass
+        if i["type"] == "edge": 
+
+            for txt in WILD_DICE_EDGES:
+                txt = txt.lower()
+                reg_ex = compile(r".*"+txt+r".*", dot)
+
+                nombre= i["name"].lower()
+                descripción= i["system"]["description"].lower()
+
+                if reg_ex.match(nombre) != None:
+                    modifica_dado = True
+                    break 
+                if reg_ex.match(descripción) != None:
+                    modifica_dado = True
+                    break 
+
 
     # Recorrer todos los "Objetos" de la ficha, selecionar las Habilidades, y cambiar el valor
     for i in ficha["items"]:
@@ -111,7 +126,7 @@ def cambiar_dados(ficha):
             except:
                 i["system"]["wild-die"]["sides"] = 6
 
-    return ficha
+    return (ficha, modifica_dado)
 
 def guardar_ficha(ficha, ruta):
     # Dejar el fichero en la ruta indica con nombre de Fichero = "Nombre del Personaje"(Dados).json
@@ -124,8 +139,6 @@ def guardar_ficha(ficha, ruta):
 
     # Mensaje de ejecución corretca
     return f"✅ Completado correctamente"
-
-    
 
 # Ejecución pruebas
 if __name__== "__main__":

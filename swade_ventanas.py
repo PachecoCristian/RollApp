@@ -167,6 +167,7 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
         
         # Cambiar dados
         ficha= cambiar_dados(datos[0])
+
         # Guardar la nueva ficha 
         if not ventana.multiples.get():
             # Al lado de la antigua si es individual
@@ -174,7 +175,11 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
         else:
             # Ruta indicada ecaso de muchas
             ruta_final= os.path.abspath(ventana.carpeta.get())
-        mensaje= guardar_ficha(ficha, ruta_final)
+        mensaje= guardar_ficha(ficha[0], ruta_final)
+
+        # Comprobar si ventaja que cambia dados
+        if ficha[1]:
+            return ("El personaje tiene modificación de Dado Salvage", "alerta")
         
         return (mensaje, "correcto")
     
@@ -199,6 +204,8 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
                         ctk.CTkLabel(frame, text=texto, text_color="red").pack(side="left")
                     case "correcto":
                         ctk.CTkLabel(frame, text=texto, text_color="green").pack(side="left")
+                    case "alerta":
+                        ctk.CTkLabel(frame, text=texto, text_color="yellow").pack(side="left")
                     case _:
                         ctk.CTkLabel(frame, text=texto ).pack(side="left")
 
