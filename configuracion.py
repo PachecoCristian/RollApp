@@ -12,6 +12,8 @@ WILD_DICE_EDGES=[
     "MAESTRO"
 ]
 
+SWADE_FILE="D:/Archivos/Juegos/Foundry/Sav/Data/systems/swade/swade.js"
+
 RANDOM_NAME=[
 "A",
 "(Action)",

@@ -19,10 +19,13 @@ class App(ctk.CTk):
 
     #Componentes
         lista_menu= {
+            # Any System
             "Nombre Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Nombre),
             "Lugar Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Lugar),
+            # SWADE
             "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
             "Atributo como Dado Salvaje": lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes),
+            "Aumentos por Rango": lambda: app.cambiar_ventana(sw.Ventana_Avances),
         }
         Frame_Menu(app,opciones=lista_menu).colocar()
 

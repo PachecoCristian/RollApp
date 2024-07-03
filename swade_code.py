@@ -77,7 +77,6 @@ def abrir_ficha(ruta):
     
     return (fichero, es_comodin)
    
-
 def cambiar_dados(ficha):
     # Datos
     datos={
@@ -140,6 +139,80 @@ def guardar_ficha(ficha, ruta):
     # Mensaje de ejecución corretca
     return f"✅ Completado correctamente"
 
+def abrir_js(ruta):
+    with open(ruta, 'r', encoding="utf8") as f:
+        lines = f.readlines()
+    return lines
+
+def cambiar_avance(archivo, n_avances=0):
+    n_linea= 0
+    i=0
+    # Encontrar la linea en la que comienza el codigo de cambiar el Rango
+    for i in range(len(archivo)):
+        if archivo[i].strip().startswith("function getRankFromAdvance"):
+            n_linea= i
+            break
+        i+=1
+    # Cambiar el codigo, linea por linea
+    if n_linea != 0:
+        if n_avances!=0:
+        # function getRankFromAdvance(advance)
+        # if (advance <= 3) {
+            archivo[i+1]= "    if (advance <= "+str(n_avances)+") { \n"
+        # return constants.RANK.NOVICE;
+        # }
+        # else if (advance.between(4, 7)) {
+            archivo[i+4]= "    else if (advance.between("+str(n_avances + 1)+", "+str(n_avances*2 )+")) { \n"
+        # return constants.RANK.SEASONED;
+        # }
+        # else if (advance.between(8, 11)) {
+            archivo[i+7]= "    else if (advance.between("+str(n_avances*2 +1)+", "+str(n_avances*3)+")) { \n"
+        # return constants.RANK.VETERAN;
+        # }
+        # else if (advance.between(12, 15)) {
+            archivo[i+10]= "    else if (advance.between("+str(n_avances*3 + 1)+", "+str(n_avances*4 )+")) { \n"
+        # return constants.RANK.HEROIC;
+        # }
+        # else {
+        # return constants.RANK.LEGENDARY;
+        # }
+        else :      # Opcion por defecto
+            archivo[i+1]= "    if (advance <= 3) { \n"
+            archivo[i+4]= "    else if (advance.between(4, 7)) { \n"
+            archivo[i+7]= "    else if (advance.between(8, 11)) { \n"
+            archivo[i+10]= "    else if (advance.between(12, 15)) { \n"
+    return archivo
+
+def valor_avances(archivo):
+    n_linea= 0
+    i=0
+    respuesta = "f"
+    # Encontrar la linea en la que comienza el codigo de cambiar el Rango
+    for i in range(len(archivo)):
+        if archivo[i].strip().startswith("function getRankFromAdvance"):
+            n_linea= i
+            break
+        i+=1
+
+    if n_linea != 0:
+        reg_ex = compile(r"[0-9]+", dot)
+        valor1 = int( reg_ex.findall(archivo[i+1])[0])
+        valor2 = int( reg_ex.findall(archivo[i+4])[1])
+        valor3 = int( reg_ex.findall(archivo[i+7])[1])
+        valor4 = int( reg_ex.findall(archivo[i+10])[1])
+        #print(f"1: {valor1}, 2: {valor2}")
+        if valor1 == 3 and valor2 == 7 and valor3== 11 and valor4==15:
+            respuesta= "d"
+        elif (valor2 % valor1)==  0 and (valor3 % valor1)==  0 and (valor4 % valor1)==  0:
+            respuesta= valor1
+
+    return respuesta
+
+def guardar_archivo(archivo, ruta):
+    with open(ruta,"w", encoding='utf-8') as f:
+        f.writelines(archivo)
+    print(f"archivo {ruta} completado")
+
 # Ejecución pruebas
 if __name__== "__main__":
     """     
@@ -165,5 +238,14 @@ if __name__== "__main__":
             # ¿OK?: 8006399337547549/ 9007199254740992
         #print(expode_prob(9,6).as_integer_ratio())     # ¿OK?: 1000799917193443 / 9007199254740992 
     """
-pass
+    
+    """ 
+    ruta = SWADE_FILE
+    archivo = abrir_js(ruta)
+    archivo = cambiar_avance(archivo, 4)
+    guardar_archivo(archivo, ruta) 
+
+    print( valor_avances(archivo) )
+    """
+
 
