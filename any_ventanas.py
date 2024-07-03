@@ -16,12 +16,12 @@ class Ventana_Nombre(ctk.CTkFrame):
         # Componentes
         # Textos
         textos = ctk.CTkFrame(frame, fg_color="transparent")
-        textos.pack(fill="x")
+        textos.pack(fill="x", padx=10, pady=5)
         ctk.CTkLabel(textos, textvariable= ventana.nombre,font=ctk.CTkFont(size=20)).pack(fill="x")
         ctk.CTkLabel(textos, textvariable= ventana.opciones).pack(fill="x")
         # Botones
         ventana.botones = ctk.CTkFrame(frame, fg_color="transparent")
-        ventana.botones.pack()
+        ventana.botones.pack(padx=10, pady=5)
         ctk.CTkButton(ventana.botones, text= "Nombre", command= ventana.nombre_aleatorio).pack()
     
     def nombre_aleatorio(ventana):
@@ -64,8 +64,8 @@ class Ventana_Nombre(ctk.CTkFrame):
     def cambiar_botones(ventana):
         ventana.elimina_botones()
 
-        ctk.CTkButton(ventana.botones, text= "Nueva Letra", command= ventana.nueva_letra).pack(side="left")
-        ctk.CTkButton(ventana.botones, text= "Borrar", command= ventana.borrar).pack(side="left")
+        ctk.CTkButton(ventana.botones, text= "Nueva Letra", command= ventana.nueva_letra).pack(side="left", padx=10, pady=5)
+        ctk.CTkButton(ventana.botones, text= "Borrar", command= ventana.borrar).pack(side="left", padx=10, pady=5)
     
     def elimina_botones(ventana):
         regex = compile('.*button.*',dot)
