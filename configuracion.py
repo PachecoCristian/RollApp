@@ -7,6 +7,11 @@ SWADE_DADOS=[
     "D12",
 ]
 
+WILD_DICE_EDGES=[
+    "Master",
+    "MAESTRO"
+]
+
 RANDOM_NAME=[
 "A",
 "(Action)",
@@ -479,3 +484,5 @@ RANDOM_PLACES_ADJ=[
 ("Village","White","Witch"),
 ("Wall","Withered","Wizard"),
 ]
+
+

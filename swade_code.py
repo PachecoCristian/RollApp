@@ -97,6 +97,12 @@ def cambiar_dados(ficha):
     datos["vigor"][0]= ficha["system"]["attributes"]["vigor"]["die"]["sides"]
     datos["vigor"][1]= ficha["system"]["attributes"]["vigor"]["die"]["modifier"]
 
+    # Recorrer todos los "Objetos" de la ficha, ver si laguno contiene la ventaja
+    for i in ficha["items"]:
+        print(i)
+        #WILD_DICE_EDGES
+        pass
+
     # Recorrer todos los "Objetos" de la ficha, selecionar las Habilidades, y cambiar el valor
     for i in ficha["items"]:
         if i["type"] == "skill": 
@@ -108,13 +114,16 @@ def cambiar_dados(ficha):
     return ficha
 
 def guardar_ficha(ficha, ruta):
+    # Dejar el fichero en la ruta indica con nombre de Fichero = "Nombre del Personaje"(Dados).json
     ruta_resultado= f"{ruta}\\{ficha["name"]}(Dados).json"
     ruta_resultado = os.path.abspath(ruta_resultado)
+
+    # Guardar el fichero en formato Json
     with open(ruta_resultado,"w", encoding='utf-8') as f:
         json.dump(ficha, f, ensure_ascii=False, indent=4)
 
-    # resultado
-    return f"✅ {ruta_resultado} Completado correctamente"
+    # Mensaje de ejecución corretca
+    return f"✅ Completado correctamente"
 
     
 
