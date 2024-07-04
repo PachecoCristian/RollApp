@@ -128,12 +128,11 @@ def cambiar_dados(ficha):
     return (ficha, modifica_dado)
 
 def guardar_ficha(ficha, ruta):
-    # Dejar el fichero en la ruta indica con nombre de Fichero = "Nombre del Personaje"(Dados).json
-    ruta_resultado= f"{ruta}\\{ficha["name"]}(Dados).json"
-    ruta_resultado = os.path.abspath(ruta_resultado)
+    # Dejar el fichero en la ruta indicada
+    ruta_final = os.path.abspath(ruta)
 
     # Guardar el fichero en formato Json
-    with open(ruta_resultado,"w", encoding='utf-8') as f:
+    with open(ruta_final,"w", encoding='utf-8') as f:
         json.dump(ficha, f, ensure_ascii=False, indent=4)
 
     # Mensaje de ejecución corretca
