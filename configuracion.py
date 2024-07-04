@@ -14,6 +14,47 @@ WILD_DICE_EDGES=[
 
 SWADE_FILE="D:/Archivos/Juegos/Foundry/Sav/Data/systems/swade/swade.js"
 
+SWADE_BASE_SKILLS={
+"Academics":"Humanidades",
+"Athletics":"Atletismo",
+"Battle":"Tácticas",
+"Common Knowledge":"Conocimientos Generales",
+"Driving":"Conducir",
+"Electronics":"Electrónica",
+"Fighting":"Pelear",
+"Gambling":"Apostar",
+"Healing":"Medicina",
+"Intimidation":"Intimidar",
+"Language":"Idioma",
+"Notice":"Notar",
+"Occult":"Ocultismo",
+"Performance":"Interpretar",
+"Persuasion":"Persuadir",
+"Repair":"Reparar",
+"Research":"Investigar",
+"Science":"Ciencias",
+"Shooting":"Disparar",
+"Stealth":"Sigilo",
+"Survival":"Supervivencia",
+"Taunt":"Provocar",
+"Thievery":"Latrocinio"
+}
+SWADE_SKILLS_2={
+"Boating":"Navegar",
+"Piloting":"Pilotar",
+"Riding":"Cabalgar",
+"Hacking":"Ordenadores",
+}
+SWADE_POWER_SKILLS={
+"Focus":"Control",
+"Faith":"Fe",
+"Psionics":"Psiónica",
+"Spellcasting":"Hechicería",
+"Weird Science":"Ciencia extraña",
+}
+FICHA_HABILIDADES_ENTRENADAS= "D:\Archivos\Juegos\Roll\Sistemas\SW\SWADE-habilidades-entrenadas.json"
+FICHA_HABILIDADES_SIN_ENTRENAR= "D:\Archivos\Juegos\Roll\Sistemas\SW\SWADE-habilidades-sin-entrenar.json"
+
 RANDOM_NAME=[
 "A",
 "(Action)",

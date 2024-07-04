@@ -208,6 +208,37 @@ def valor_avances(archivo):
 
     return respuesta
 
+def añadir_habilidades(ficha):
+    habilidades = {}
+    #Recore la lista de habilidades que se deben tener
+    for habilidad in SWADE_BASE_SKILLS:
+        habilidades.update({habilidad:False})
+        # Lista dicionario con la habilidades = False
+
+    # Recorrer las Habilidades de la ficha
+    for i in ficha["items"]:
+        if i["type"] == "skill": 
+            for habilidad in habilidades:
+                regex=compile(r".*"+habilidad+r".*", dot)
+                if regex.match( i["system"]["description"] ) != None:
+                    habilidades[habilidad]= True
+    # Habilidades ahora marca cuales tiene y cuales no
+
+    # Recorrer las skills de la ficha sin habilidades
+    archivo = abrir_ficha(FICHA_HABILIDADES_SIN_ENTRENAR)[0]
+    for i in archivo["items"]:
+        if i["type"] == "skill": 
+            for habilidad in habilidades:
+                if habilidades[habilidad] == False:
+                    regex=compile(r".*"+habilidad+r".*", dot)
+                    if regex.match( i["system"]["description"] ) != None:
+                        #print(f"anadir {i["name"]}")
+                        ficha["items"].append(i)
+    
+    return ficha
+
+    
+
 def guardar_archivo(archivo, ruta):
     with open(ruta,"w", encoding='utf-8') as f:
         f.writelines(archivo)
@@ -247,5 +278,8 @@ if __name__== "__main__":
 
     print( valor_avances(archivo) )
     """
-
-
+    archivo = abrir_ficha("D:/Archivos/Descargas/Actor-prueba.json")
+    ficha= añadir_habilidades(archivo[0])
+    # Guardar ficha generico
+    with open("D:/Archivos/Descargas/Actor-prueba-2.json","w", encoding='utf-8') as f:
+        json.dump(ficha, f, ensure_ascii=False, indent=4)
