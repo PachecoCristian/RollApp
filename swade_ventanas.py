@@ -175,6 +175,11 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
         else:
             # Ruta indicada ecaso de muchas
             ruta_final= os.path.abspath(ventana.carpeta.get())
+
+        # Añadir Nombre del fichero= "Nombre del Personaje"(Dados).json
+        ruta_final= f"{ruta_final}\\{ficha[0]["name"]}(Dados).json"
+
+        # Guardar la ficha
         mensaje= guardar_ficha(ficha[0], ruta_final)
 
         # Comprobar si ventaja que cambia dados
