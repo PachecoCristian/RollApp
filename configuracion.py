@@ -52,6 +52,7 @@ SWADE_POWER_SKILLS={
 "Spellcasting":"Hechicería",
 "Weird Science":"Ciencia extraña",
 }
+
 FICHA_HABILIDADES_ENTRENADAS= "D:/Archivos/Juegos/Roll/Sistemas/SW/SWADE-habilidades-entrenadas.json"
 FICHA_HABILIDADES_SIN_ENTRENAR= "D:/Archivos/Juegos/Roll/Sistemas/SW/SWADE-habilidades-sin-entrenar.json"
 

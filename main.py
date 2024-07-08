@@ -43,8 +43,6 @@ class App(ctk.CTk):
 
         ventana = funcion(app)
         ventana.grid(column=1, row=0, sticky="snew")
-        
-
 
 # Creación de los componentes
 class Frame_Menu(ctk.CTkFrame):
