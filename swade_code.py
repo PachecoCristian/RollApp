@@ -127,6 +127,43 @@ def cambiar_dados(ficha):
 
     return (ficha, modifica_dado)
 
+def añadir_habilidades(ficha):
+    habilidades = {}
+    es_npc= False
+    if ficha["type"]== "npc" and ficha["system"]["wildcard"]:
+        es_npc= True
+
+    #Recore la lista de habilidades que se deben tener
+    for habilidad in SWADE_BASE_SKILLS:
+        habilidades.update({habilidad:False})
+        # Lista dicionario con la habilidades = False
+
+    # Recorrer los "Objetos" de la ficha
+    for i in ficha["items"]:
+        if i["type"] == "skill": 
+            # Si es NPC añadir * al nombre
+            if es_npc:
+                i["name"] = f"*{i["name"]}"
+            # Recorrer la lista de habilidades y compararlas con las que faltan
+            for habilidad in habilidades:
+                regex=compile(r".*"+habilidad+r".*", dot)
+                if regex.match( i["system"]["description"] ) != None:
+                    habilidades[habilidad]= True
+    # Habilidades ahora marca cuales tiene y cuales no
+
+    # Recorrer las skills de la ficha sin habilidades
+    archivo = abrir_ficha(FICHA_HABILIDADES_SIN_ENTRENAR)[0]
+    for i in archivo["items"]:
+        if i["type"] == "skill": 
+            for habilidad in habilidades:
+                if habilidades[habilidad] == False:
+                    regex=compile(r".*"+habilidad+r".*", dot)
+                    if regex.match( i["system"]["description"] ) != None:
+                        #print(f"anadir {i["name"]}")
+                        ficha["items"].append(i)
+    
+    return ficha
+ 
 def guardar_ficha(ficha, ruta):
     # Dejar el fichero en la ruta indicada
     ruta_final = os.path.abspath(ruta)
@@ -207,37 +244,6 @@ def valor_avances(archivo):
 
     return respuesta
 
-def añadir_habilidades(ficha):
-    habilidades = {}
-    #Recore la lista de habilidades que se deben tener
-    for habilidad in SWADE_BASE_SKILLS:
-        habilidades.update({habilidad:False})
-        # Lista dicionario con la habilidades = False
-
-    # Recorrer las Habilidades de la ficha
-    for i in ficha["items"]:
-        if i["type"] == "skill": 
-            for habilidad in habilidades:
-                regex=compile(r".*"+habilidad+r".*", dot)
-                if regex.match( i["system"]["description"] ) != None:
-                    habilidades[habilidad]= True
-    # Habilidades ahora marca cuales tiene y cuales no
-
-    # Recorrer las skills de la ficha sin habilidades
-    archivo = abrir_ficha(FICHA_HABILIDADES_SIN_ENTRENAR)[0]
-    for i in archivo["items"]:
-        if i["type"] == "skill": 
-            for habilidad in habilidades:
-                if habilidades[habilidad] == False:
-                    regex=compile(r".*"+habilidad+r".*", dot)
-                    if regex.match( i["system"]["description"] ) != None:
-                        #print(f"anadir {i["name"]}")
-                        ficha["items"].append(i)
-    
-    return ficha
-
-    
-
 def guardar_archivo(archivo, ruta):
     with open(ruta,"w", encoding='utf-8') as f:
         f.writelines(archivo)
@@ -245,6 +251,7 @@ def guardar_archivo(archivo, ruta):
 
 # Ejecución pruebas
 if __name__== "__main__":
+    # Pruebas de Probabilidad
     """     
     #expode_prob(4,8)       # OK: 1/2
             # OK: 1/2
@@ -268,7 +275,7 @@ if __name__== "__main__":
             # ¿OK?: 8006399337547549/ 9007199254740992
         #print(expode_prob(9,6).as_integer_ratio())     # ¿OK?: 1000799917193443 / 9007199254740992 
     """
-    
+    # Pruebas de Cambios de Avance
     """ 
     ruta = SWADE_FILE
     archivo = abrir_js(ruta)
@@ -277,8 +284,9 @@ if __name__== "__main__":
 
     print( valor_avances(archivo) )
     """
-    archivo = abrir_ficha("D:/Archivos/Descargas/Actor-prueba.json")
+    # Pruebas de añadir habilidades
+    """
+    archivo = abrir_ficha("D:/Archivos/Descargas/fvtt-Actor-npc-prueba-tXd6WDXnU5wc7m4l.json")
     ficha= añadir_habilidades(archivo[0])
-    # Guardar ficha generico
-    with open("D:/Archivos/Descargas/Actor-prueba-2.json","w", encoding='utf-8') as f:
-        json.dump(ficha, f, ensure_ascii=False, indent=4)
+    print(guardar_ficha(ficha, "D:/Archivos/Descargas/NPC.json"))
+    """

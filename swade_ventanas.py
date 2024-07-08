@@ -168,7 +168,7 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
         # Cambiar dados
         ficha= cambiar_dados(datos[0])
 
-        # Guardar la nueva ficha 
+        # Crear la ruta para guardar el fichero 
         if not ventana.multiples.get():
             # Al lado de la antigua si es individual
             ruta_final= os.path.split(os.path.abspath(ruta))[0]
@@ -305,3 +305,205 @@ class Ventana_Avances(ctk.CTkFrame):
 
         ventana.aumentos_actu.set(f"Valor cambiado a {avances}")
 
+class Ventana_Habilidades(ctk.CTkFrame):
+    def __init__(ventana, master):
+        super().__init__(master= master)
+
+        # Crear la (Sub-ventana)
+        frame = ctk.CTkFrame(ventana)
+        frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        # Datos
+        ventana.ruta = ctk.StringVar()
+        ventana.carpeta = ctk.StringVar()
+        ventana.multiples = ctk.BooleanVar(value= False)
+        ventana.wild_dice = ctk.BooleanVar(value= True)
+
+        # Componentes
+            # Frame para poner mensajes y alertas
+        ventana.mensaje1 = ctk.CTkFrame(frame, corner_radius=0, fg_color="transparent")
+        ventana.mensaje1.pack(padx=10, pady=5)
+        ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
+            # Frame para botones y el checkbox
+        ventana.opciones = ctk.CTkFrame(frame, corner_radius=0, fg_color="transparent")
+        ventana.opciones.pack()
+        ventana.opciones_multiples()
+            
+    def ruta_origen(ventana):
+        try:
+            ventana.ruta.set(ctk.filedialog.askdirectory())
+            ventana.mensaje(ventana.mensaje1,["Cambiando archivos de: ",ventana.ruta.get()])
+        except AttributeError:
+            pass
+
+    def ruta_destino(ventana):
+        try:
+            ventana.carpeta.set(ctk.filedialog.askdirectory())
+            ventana.mensaje(ventana.mensaje2,["Dejando ficheros en: ",ventana.carpeta.get()])
+        except AttributeError:
+            pass      
+    
+    def gestion_fichas(ventana):
+        # Eliminar textos inferiores, si los hay
+        try:
+            ventana.textos.destroy()
+        except:
+            pass
+
+        # Comprobar que modo se tiene selecionado:
+            # 1 solo archivo
+            # Carpeta entera
+        if not ventana.multiples.get():
+        # Si solo hay 1 ficha se pide al usuario que eliga el archivo
+            try:
+                # El usuario elige el archivo
+                ruta = (ctk.filedialog.askopenfile().name)
+                fichero= os.path.split(ruta)[1]+": "
+                # Se ejcuta el cambio de valores. 
+                    # Devuelbe un mensaje de Error o si se a compleatdo correctamente
+                mensaje= ventana.añadir_habilidades(ruta)
+                # Se muestra el mensaje en el Texto superior de la ventana
+                ventana.mensaje(ventana.mensaje1,[fichero,mensaje[0]],mensaje[1])
+            except AttributeError:
+                # Esta excepción está por el el usuario no elige ninguna ventana
+                    # Mirar de controlar excepciones expecificas
+                pass
+            # Borrando datos usados
+            ventana.ruta.set("")
+            ventana.carpeta.set("")
+        else:
+        # Si solo hay varias fichas se recorre la carpeta
+            # Comprobar que haya carpeta de origen y destino
+            if ventana.ruta.get() == "" or ventana.carpeta.get() == "":
+                ventana.mensaje(ventana.mensaje1,["","Seleccione las carpetas de Origen y Destino"],"error")
+                return
+            
+            # Crear Frame para los mensajes de los difreenetes archivos
+            ventana.textos = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            ventana.textos.pack()
+            ctk.CTkLabel(ventana.textos, text="")
+
+            # Recorer los elemntos en la Carpeta Origen
+            carpeta=  os.scandir(ventana.ruta.get())
+            for i in carpeta:
+                # Se recoren los archivos exeptuando "desktop.ini" que es pripio de windows
+                if i.is_file() and i.name != "desktop.ini":
+                    # Se crea un frame para poner el mensaje
+                    frame = ctk.CTkFrame(ventana.textos, fg_color="transparent")
+                    frame.pack(padx=10, pady=5)
+                    fichero= i.name+" : "
+                    # Se ejcuta el cambio de valores. 
+                        # Devuelbe un mensaje de Error o si se a compleatdo correctamente
+                    mensaje = ventana.añadir_habilidades(i.path)
+                    # Se muestra el mensaje en el frame que se acaba de crear
+                    ventana.mensaje(frame,[fichero, mensaje[0]],mensaje[1])
+            
+            # Borrar Datos
+            ventana.ruta.set("")
+            ventana.carpeta.set("")
+            ventana.mensaje(ventana.mensaje1,["Cambiando archivos de: "])
+            ventana.mensaje(ventana.mensaje2,["Dejando ficheros en: "])
+
+    def añadir_habilidades(ventana, ruta):
+         # Comprobar que es una ficha valida
+        try:
+            datos = abrir_ficha(ruta)
+        except Exception as e:
+            return (e, "error")
+
+        # Añadir habilidades basicas
+        ficha= añadir_habilidades(datos[0])
+
+        # Crear la ruta para guardar el fichero 
+        if not ventana.multiples.get():
+            # Al lado de la antigua si es individual
+            ruta_final= os.path.split(os.path.abspath(ruta))[0]
+        else:
+            # Ruta indicada ecaso de muchas
+            ruta_final= os.path.abspath(ventana.carpeta.get())
+
+        # Añadir Nombre del fichero= "Nombre del Personaje".json
+        # Cambiar dados salvages
+        if ventana.wild_dice:
+            ficha= cambiar_dados(datos[0])
+            ruta_final= f"{ruta_final}\\{ficha[0]["name"]}(Dados).json"
+        else:
+            ruta_final= f"{ruta_final}\\{ficha[0]["name"]}.json"
+
+        # Guardar la ficha
+        mensaje= guardar_ficha(ficha[0], ruta_final)
+
+         # Comprobar No es comodin
+        if not datos[1]:
+            return ("El no necesita el resto de habilidades", "alerta")
+        
+        # Comprobar si ventaja que cambia dados
+        if ficha[1]:
+            return ("El personaje tiene modificación de Dado Salvage", "alerta")
+        
+        return (mensaje, "correcto")
+    
+    # Funciones Visuales
+    def mensaje(ventana, frame, textos, tipo=""):
+        # Borrar posibles elementos en el frame
+        try:
+            for i in frame.children :
+                frame.children[i].pack_forget()
+        except:
+            pass
+        
+        # Se recorren los elementos
+        for texto in textos:
+            # Si es el primero, siempre es un mensaje normal
+            if texto == textos[0]:
+                ctk.CTkLabel(frame, text=texto ).pack(side="left")
+            # Al resto se les camba el color dependiendo 
+            else:
+                match tipo:
+                    case "error":
+                        ctk.CTkLabel(frame, text=texto, text_color="red").pack(side="left")
+                    case "correcto":
+                        ctk.CTkLabel(frame, text=texto, text_color="green").pack(side="left")
+                    case "alerta":
+                        ctk.CTkLabel(frame, text=texto, text_color="yellow").pack(side="left")
+                    case _:
+                        ctk.CTkLabel(frame, text=texto ).pack(side="left")
+     
+    def borrar_opciones(ventana):
+        for i in ventana.opciones.children :
+                ventana.opciones.children[i].pack_forget()
+   
+    def opciones_multiples(ventana):
+        # Borrar Datos
+        ventana.ruta.set("")
+        ventana.carpeta.set("")
+        
+        try:
+            ventana.mensaje2.destroy()
+        except:
+            pass
+
+        if ventana.multiples.get():
+            ventana.borrar_opciones()
+
+            ventana.mensaje(ventana.mensaje1,[""])
+            botones = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            botones.columnconfigure((0,1), weight=1, uniform="a")
+            botones.rowconfigure((0,1), weight=1, uniform="a")
+            botones.pack()
+            ctk.CTkCheckBox(botones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).grid(column=0, row=0, padx=10, pady=5)
+            ctk.CTkCheckBox(botones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice).grid(column=1, row=0, padx=10, pady=5)
+            ctk.CTkButton(botones, text="Carpeta Origen", command=ventana.ruta_origen).grid(column=0, row=1, padx=10, pady=5)
+            ctk.CTkButton(botones, text="Carpeta Destino", command=ventana.ruta_destino).grid(column=1, row=1, padx=10, pady=5)
+            ctk.CTkButton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas).pack(pady=5)
+            ventana.mensaje2 = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            ventana.mensaje2.pack(padx=10, pady=5)
+            ctk.CTkLabel(ventana.mensaje2, text="").pack()
+        else:
+            ventana.borrar_opciones()
+
+            ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
+            ctk.CTkCheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).pack(side="left", padx=10, pady=5)
+            ctk.CTkCheckBox(ventana.opciones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice).pack(side="left", padx=10, pady=5)
+            ctk.CTkButton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
+         

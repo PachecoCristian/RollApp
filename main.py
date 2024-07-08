@@ -25,6 +25,7 @@ class App(ctk.CTk):
             # SWADE
             "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
             "Atributo como Dado Salvaje": lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes),
+            "Poner Habilidades Base": lambda: app.cambiar_ventana(sw.Ventana_Habilidades),
             "Aumentos por Rango": lambda: app.cambiar_ventana(sw.Ventana_Avances),
         }
         Frame_Menu(app,opciones=lista_menu).colocar()
