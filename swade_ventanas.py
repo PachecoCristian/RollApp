@@ -249,62 +249,7 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
             ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
             ctk.CTkCheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).pack(side="left", padx=10, pady=5)
             ctk.CTkButton(ventana.opciones, text="Cambiar Dados", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
-            
-class Ventana_Avances(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
-        # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
-
-        # Datos
-        ventana.aumentos_actu = ctk.StringVar()
-        ventana.n_aumentos = ctk.StringVar()
-
-        # Componetes
-        ctk.CTkLabel(frame, textvariable= ventana.aumentos_actu).pack(padx=10, pady=5)
-        ventana.aumentos_actuales()
-        ctk.CTkEntry(frame, textvariable= ventana.n_aumentos ).pack(padx=10, pady=5)
-        ctk.CTkButton(frame, text="Calcular", command=ventana.cambiar_aumentos).pack( padx=10, pady=5)
-    
-    def aumentos_actuales(ventana):
-        archivo= abrir_js(SWADE_FILE)
-        valor= valor_avances(archivo)
-        match valor:
-            case "f":
-                respuesta= " un valor personalizado"
-            case "d":
-                respuesta= " el valor por defecto de SAWDE"
-            case _:
-                respuesta= f" a {valor} aumentos por nivel"
-                
-        ventana.aumentos_actu.set(f"Actualmente está {respuesta}")
-    
-    def cambiar_aumentos(ventana):
-        # Compobar que el valor sea correcto
-        if ventana.n_aumentos.get().lower() == "d" or ventana.n_aumentos.get().lower() == "default":
-            valor= 0
-        else:
-            try:
-                valor = int(ventana.n_aumentos.get())
-            except:
-                ventana.aumentos_actu.set("El valor debe ser un numero")
-        # Modificar el fichero
-        ruta = SWADE_FILE
-        archivo = abrir_js(ruta)
-        archivo = cambiar_avance(archivo, valor)
-        guardar_archivo(archivo, ruta) 
-        # Actualizar el numero de avances actuales
-        avances = valor_avances(archivo)
-        match avances:
-            case "f":
-                avances= "Error"
-            case "d":
-                avances= "Defecto"
-
-        ventana.aumentos_actu.set(f"Valor cambiado a {avances}")
-
+   
 class Ventana_Habilidades(ctk.CTkFrame):
     def __init__(ventana, master):
         super().__init__(master= master)
@@ -506,4 +451,59 @@ class Ventana_Habilidades(ctk.CTkFrame):
             ctk.CTkCheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).pack(side="left", padx=10, pady=5)
             ctk.CTkCheckBox(ventana.opciones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice).pack(side="left", padx=10, pady=5)
             ctk.CTkButton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
-         
+            
+class Ventana_Avances(ctk.CTkFrame):
+    def __init__(ventana, master):
+        super().__init__(master= master)
+
+        # Crear la (Sub-ventana)
+        frame = ctk.CTkFrame(ventana)
+        frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        # Datos
+        ventana.aumentos_actu = ctk.StringVar()
+        ventana.n_aumentos = ctk.StringVar()
+
+        # Componetes
+        ctk.CTkLabel(frame, textvariable= ventana.aumentos_actu).pack(padx=10, pady=5)
+        ventana.aumentos_actuales()
+        ctk.CTkEntry(frame, textvariable= ventana.n_aumentos ).pack(padx=10, pady=5)
+        ctk.CTkButton(frame, text="Cambiar Aumentos", command=ventana.cambiar_aumentos).pack( padx=10, pady=5)
+    
+    def aumentos_actuales(ventana):
+        archivo= abrir_js(SWADE_FILE)
+        valor= valor_avances(archivo)
+        match valor:
+            case "f":
+                respuesta= " un valor personalizado"
+            case "d":
+                respuesta= " el valor por defecto de SAWDE"
+            case _:
+                respuesta= f" a {valor} aumentos por nivel"
+                
+        ventana.aumentos_actu.set(f"Actualmente está {respuesta}")
+    
+    def cambiar_aumentos(ventana):
+        # Compobar que el valor sea correcto
+        if ventana.n_aumentos.get().lower() == "d" or ventana.n_aumentos.get().lower() == "default":
+            valor= 0
+        else:
+            try:
+                valor = int(ventana.n_aumentos.get())
+            except:
+                ventana.aumentos_actu.set("El valor debe ser un numero")
+        # Modificar el fichero
+        ruta = SWADE_FILE
+        archivo = abrir_js(ruta)
+        archivo = cambiar_avance(archivo, valor)
+        guardar_archivo(archivo, ruta) 
+        # Actualizar el numero de avances actuales
+        avances = valor_avances(archivo)
+        match avances:
+            case "f":
+                avances= "Error"
+            case "d":
+                avances= "Defecto"
+
+        ventana.aumentos_actu.set(f"Valor cambiado a {avances}")
+      
