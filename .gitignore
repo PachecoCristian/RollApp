@@ -1,6 +1,7 @@
 .ven1
 __pycache__
 .vscode
+RollApp.code-workspace
 
 MAIN.bat
 Roll Tools.vbs
