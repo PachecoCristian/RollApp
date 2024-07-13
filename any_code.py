@@ -46,7 +46,33 @@ def adjetivos_lugar_aleatorio(nombre):
     
     return nombre, ref
 
+def apariecia_personaje_aleatorio():
+    valor1 = RANDOM_CHAR_APPEARANCE[randint(0,len(RANDOM_CHAR_APPEARANCE)-1)]
+    valor2 = RANDOM_CHAR_APPEARANCE[randint(0,len(RANDOM_CHAR_APPEARANCE)-1)]
+
+    return (valor1,valor2)
+
+def personalidad_personaje_aleatorio():
+    valor1 = RANDOM_CHAR_PERSONALITY[randint(0,len(RANDOM_CHAR_PERSONALITY)-1)]
+    valor2 = RANDOM_CHAR_PERSONALITY[randint(0,len(RANDOM_CHAR_PERSONALITY)-1)]
+
+    return (valor1,valor2)
+
+def descripcion_personaje_aleatorio():
+    valor1 = RANDOM_CHAR_DESCRIPTOR[randint(0,len(RANDOM_CHAR_DESCRIPTOR)-1)]
+    valor2 = RANDOM_CHAR_DESCRIPTOR[randint(0,len(RANDOM_CHAR_DESCRIPTOR)-1)]
+
+    return (valor1,valor2)
+
 # Ejecución pruebas
 if __name__== "__main__":
     #letra_aleatoria()
+    """
+    a = apariecia_personaje_aleatorio()
+    print(f"{a[0]}, {a[1]}")
+    p = personalidad_personaje_aleatorio()
+    print(f"{p[0]}, {p[1]}")
+    d = descripcion_personaje_aleatorio()
+    print(f"{d[0]}, {d[1]}")
+    """
     pass

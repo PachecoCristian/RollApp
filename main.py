@@ -22,6 +22,7 @@ class App(ctk.CTk):
             # Any System
             "Nombre Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Nombre),
             "Lugar Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Lugar),
+            "Personaje Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Personaje),
             # SWADE
             "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
             "Atributo como Dado Salvaje": lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes),
