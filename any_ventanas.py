@@ -231,3 +231,174 @@ class Ventana_Personaje(ctk.CTkFrame):
             if regex.match(i) != None:
                 #ventana.botones.children[i].pack_forget()
                 ventana.botones.children[i].grid_forget()
+
+class Ventana_Conversor(ctk.CTkFrame):
+    def __init__(ventana, master):
+        super().__init__(master= master)
+
+        # Crear la (Sub-ventana)
+        ventana.frame = ctk.CTkFrame(ventana)
+        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        # Datos
+        ventana.m= ctk.StringVar()
+        ventana.feet= ctk.StringVar()
+        ventana.inch= ctk.StringVar()
+        ventana.es_m= ctk.BooleanVar(value=False)
+
+        ventana.kg= ctk.StringVar()
+        ventana.lb= ctk.StringVar()
+        ventana.oz= ctk.StringVar()
+        ventana.es_kg= ctk.BooleanVar(value=False)
+
+        ventana.l= ctk.StringVar()
+        ventana.gal= ctk.StringVar()
+        ventana.es_l= ctk.BooleanVar(value=False)
+
+        # Distancia
+        frame_distancia= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        frame_distancia.pack(expand=True, fill="x")
+            # Titulo
+        ctk.CTkLabel(frame_distancia, text="Distancia", font=ctk.CTkFont(size=20)).pack()
+            # 1º linea
+        frame_d1= ctk.CTkFrame(frame_distancia, fg_color="transparent")
+        frame_d1.pack(expand=True, fill="x", pady=5)
+        ctk.CTkEntry(frame_d1, textvariable= ventana.feet).pack(side="left")
+        ctk.CTkLabel(frame_d1, text="Feet").pack(side="left", padx=10)
+        ctk.CTkEntry(frame_d1, textvariable= ventana.inch).pack(side="left")
+        ctk.CTkLabel(frame_d1, text="Inches").pack(side="left", padx=10)
+            # 2º Linea
+        frame_d2= ctk.CTkFrame(frame_distancia, fg_color="transparent")
+        frame_d2.pack(expand=True, pady=5)
+        ventana.boton_distancia= ctk.CTkButton(frame_d2, text= "⬇", command= ventana.calcular_distancia)
+        ventana.boton_distancia.pack(side="left")
+        ctk.CTkCheckBox(frame_d2, text= "Cambiar", variable=ventana.es_m, command= ventana.cambiar_distancia).pack(side="left", padx=10)
+            # 3º Linea
+        frame_d3= ctk.CTkFrame(frame_distancia, fg_color="transparent")
+        frame_d3.pack(expand=True, pady=5)
+        ctk.CTkEntry(frame_d3, textvariable= ventana.m).pack(side="left")
+        ctk.CTkLabel(frame_d3, text="Metros").pack(side="left", padx=10)
+
+        # Peso
+        frame_peso= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        frame_peso.pack(expand=True, fill="x", pady=10)
+            # Titulo
+        ctk.CTkLabel(frame_peso, text="Peso", font=ctk.CTkFont(size=20)).pack()
+            # 1º linea
+        frame_p1= ctk.CTkFrame(frame_peso, fg_color="transparent")
+        frame_p1.pack(expand=True, fill="x", pady=5)
+        ctk.CTkEntry(frame_p1, textvariable= ventana.lb).pack(side="left")
+        ctk.CTkLabel(frame_p1, text="Pound").pack(side="left", padx=10)
+        ctk.CTkEntry(frame_p1, textvariable= ventana.oz).pack(side="left")
+        ctk.CTkLabel(frame_p1, text="Ounces").pack(side="left", padx=10)
+            # 2º Linea
+        frame_p2= ctk.CTkFrame(frame_peso, fg_color="transparent")
+        frame_p2.pack(expand=True, pady=5)
+        ventana.boton_peso= ctk.CTkButton(frame_p2, text= "⬇", command= ventana.calcular_peso)
+        ventana.boton_peso.pack(side="left")
+        ctk.CTkCheckBox(frame_p2, text= "Cambiar", variable=ventana.es_kg, command= ventana.cambiar_peso).pack(side="left", padx=10)
+            # 3º Linea
+        frame_p3= ctk.CTkFrame(frame_peso, fg_color="transparent")
+        frame_p3.pack(expand=True, pady=5)
+        ctk.CTkEntry(frame_p3, textvariable= ventana.kg).pack(side="left")
+        ctk.CTkLabel(frame_p3, text="Kilos").pack(side="left", padx=10)
+            
+        # Cantidad
+        frame_cantidad= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        frame_cantidad.pack(expand=True, fill="x")
+            # Titulo
+        ctk.CTkLabel(frame_cantidad, text="Cantidad", font=ctk.CTkFont(size=20)).pack()
+            # 1º linea
+        frame_c1= ctk.CTkFrame(frame_cantidad, fg_color="transparent")
+        frame_c1.pack(expand=True, pady=5)
+        ctk.CTkEntry(frame_c1, textvariable= ventana.gal).pack(side="left")
+        ctk.CTkLabel(frame_c1, text="Gallon").pack(side="left", padx=10)
+            # 2º Linea
+        frame_c2= ctk.CTkFrame(frame_cantidad, fg_color="transparent")
+        frame_c2.pack(expand=True, pady=5)
+        ventana.boton_cantidad= ctk.CTkButton(frame_c2, text= "⬇", command= ventana.calcular_cantidad)
+        ventana.boton_cantidad.pack(side="left")
+        ctk.CTkCheckBox(frame_c2, text= "Cambiar", variable=ventana.es_l, command= ventana.cambiar_cantidad).pack(side="left", padx=10)
+            # 3º Linea
+        frame_c3= ctk.CTkFrame(frame_cantidad, fg_color="transparent")
+        frame_c3.pack(expand=True, pady=5)
+        ctk.CTkEntry(frame_c3, textvariable= ventana.l).pack(side="left")
+        ctk.CTkLabel(frame_c3, text="Litros").pack(side="left", padx=10)
+    
+    def calcular_distancia(ventana):
+        if ventana.es_m.get():
+            feet= 0
+            inch= 0
+            try:
+                m = float(ventana.m.get()) if ventana.m.get()!= "" else 0
+            except:
+                print("No es un numero")
+            feet, inch = conversor_m_pies(m, 0, True)
+            ventana.feet.set(str(feet))
+            ventana.inch.set(str(inch))
+        else:
+            m= 0
+            try:
+                feet = int(ventana.feet.get()) if ventana.feet.get()!= "" else 0
+                inch = int(ventana.inch.get()) if ventana.inch.get()!= "" else 0
+            except:
+                print("No es un numero")
+            m = conversor_m_pies(feet, inch, False)[0]
+            ventana.m.set(str(m))
+            
+    def cambiar_distancia(ventana):
+        if ventana.es_m.get():
+            ventana.boton_distancia.configure(text="⬆")
+        else:
+            ventana.boton_distancia.configure(text="⬇")
+    
+    def calcular_peso(ventana):
+        if ventana.es_kg.get():
+            lb= 0
+            oz= 0
+            try:
+                kg = float(ventana.kg.get()) if ventana.kg.get()!= "" else 0
+            except:
+                print("No es un numero")
+            lb, oz = conversor_lb_kg(kg, 0, True)
+            ventana.lb.set(str(lb))
+            ventana.oz.set(str(oz))
+        else:
+            kg= 0
+            try:
+                lb = int(ventana.lb.get()) if ventana.lb.get()!= "" else 0
+                oz = int(ventana.oz.get()) if ventana.oz.get()!= "" else 0
+            except:
+                print("No es un numero")
+            kg = conversor_lb_kg(lb, oz, False)[0]
+            ventana.kg.set(str(kg))
+
+    def cambiar_peso(ventana):
+        if ventana.es_kg.get():
+            ventana.boton_peso.configure(text="⬆")
+        else:
+            ventana.boton_peso.configure(text="⬇")
+    
+    def calcular_cantidad(ventana):
+        if ventana.es_l.get():
+            gal= 0
+            try:
+                l = float(ventana.l.get()) if ventana.l.get()!= "" else 0
+            except:
+                print("No es un numero")
+            gal = conversor_l_gal(l, True)
+            ventana.gal.set(str(gal))
+        else:
+            l= 0
+            try:
+                gal = float(ventana.gal.get()) if ventana.gal.get()!= "" else 0
+            except:
+                print("No es un numero")
+            l = conversor_l_gal(gal, False)
+            ventana.l.set(str(l))
+
+    def cambiar_cantidad(ventana):
+        if ventana.es_l.get():
+            ventana.boton_cantidad.configure(text="⬆")
+        else:
+            ventana.boton_cantidad.configure(text="⬇")
