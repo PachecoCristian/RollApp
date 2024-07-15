@@ -3,6 +3,7 @@ import customtkinter as ctk
 from configuracion import *
 import swade_ventanas as sw
 import any_ventanas as anyr
+import DyD_code as dyd
 
 class App(ctk.CTk):
     def __init__(app, titulo, tamaño):
