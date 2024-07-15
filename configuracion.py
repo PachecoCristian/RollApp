@@ -837,3 +837,43 @@ RANDOM_CHAR_DESCRIPTOR=[
 "Wild",
 "Young",
 ]
+
+DYD_HIT_DICE={
+"Artificer": "d8",
+"Barbarian": "d12",
+"Bard": "d8",
+"Cleric": "d8",
+"Druid": "d8",
+"Fighter": "d10",
+"Monk": "d8",
+"Paladin": "d10",
+"Ranger": "d10",
+"Rogue": "d8",
+"Sorcerer": "d6",
+"Warlock": "d8",
+"Wizard": "d6",
+}
+
+A5E_HIT_DICE={
+"Adept" :"d8",
+"Artificer" :"d8",
+"Bard" :"d8",
+"Berserker" :"d12",
+"Cleric" :"d8",
+"Druid" :"d8",
+"Fighter" :"d10",
+"Herald" :"d10",
+"Marshal" :"d10",
+"Ranger" :"d10",
+"Rogue" :"d8",
+"Savant" :"d8",
+"Sorcerer" :"d6",
+"Warlock" :"d8",
+"Wizard" :"d6",
+}
+
+VALORES_HIT_DICE=[
+    "Maximo",
+    "Medio",
+    "Minimo"
+]

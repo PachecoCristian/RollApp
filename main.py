@@ -3,7 +3,7 @@ import customtkinter as ctk
 from configuracion import *
 import swade_ventanas as sw
 import any_ventanas as anyr
-import DyD_code as dyd
+import DyD_ventanas as dyd
 
 class App(ctk.CTk):
     def __init__(app, titulo, tamaño):
@@ -32,6 +32,7 @@ class App(ctk.CTk):
             "Poner Habilidades Base": lambda: app.cambiar_ventana(sw.Ventana_Habilidades),
             "Aumentos por Rango": lambda: app.cambiar_ventana(sw.Ventana_Avances),
             # D&D
+            "Puntos de Vida": lambda: app.cambiar_ventana(dyd.Ventana_Puntos_Vida),
         }
         Frame_Menu(app,opciones=lista_menu).colocar()
 
