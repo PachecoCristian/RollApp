@@ -128,8 +128,8 @@ if __name__== "__main__":
     #print(conversor_m_pies(5, 4, False))
     #print(conversor_lb_kg(225,8,False))
     #print(conversor_lb_kg(125,0,True))
-    print(conversor_l_gal(150,True))
-    print(conversor_l_gal(150,False))
+    #print(conversor_l_gal(150,True))
+    #print(conversor_l_gal(150,False))
 
 
     pass
