@@ -69,9 +69,10 @@ class Ventana_Nombre(ctk.CTkFrame):
     
     def elimina_botones(ventana):
         regex = compile('.*button.*',dot)
-        for i in ventana.botones.children :
+        elementos= list(ventana.botones.children)
+        for i in elementos :
             if regex.match(i) != None:
-                ventana.botones.children[i].pack_forget()
+                ventana.botones.children[i].destroy()
 
 class Ventana_Lugar(ctk.CTkFrame):
     def __init__(ventana, master):
@@ -135,9 +136,10 @@ class Ventana_Lugar(ctk.CTkFrame):
     # Funciones visuales
     def elimina_botones(ventana):
         regex = compile(r'.*button.*',dot)
-        for i in ventana.frame.children :
+        elementos= list(ventana.frame.children)
+        for i in elementos :
             if regex.match(i) != None:
-                ventana.frame.children[i].pack_forget()
+                ventana.frame.children[i].destroy()
 
 class Ventana_Personaje(ctk.CTkFrame):
     def __init__(ventana, master):
@@ -227,10 +229,10 @@ class Ventana_Personaje(ctk.CTkFrame):
     # Funciones visuales
     def elimina_botones(ventana):
         regex = compile(r'.*button.*',dot)
-        for i in ventana.botones.children :
+        elementos= list(ventana.botones.children)
+        for i in elementos :
             if regex.match(i) != None:
-                #ventana.botones.children[i].pack_forget()
-                ventana.botones.children[i].grid_forget()
+                ventana.botones.children[i].destroy()
 
 class Ventana_Conversor(ctk.CTkFrame):
     def __init__(ventana, master):
@@ -466,8 +468,8 @@ class Ventana_Guardias(ctk.CTkFrame):
     
     def borrar_pjs(ventana):
         regex_frame = compile('.*frame.*',dot)
-        lista= list(ventana.personajes.children)
-        for i in lista:
+        elementos= list(ventana.personajes.children)
+        for i in elementos:
             if regex_frame.match(i) != None:
                 ventana.personajes.children[i].destroy()
         ventana.crea_personaje()

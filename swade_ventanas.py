@@ -191,11 +191,9 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
     # Funciones Visuales
     def mensaje(ventana, frame, textos, tipo=""):
         # Borrar posibles elementos en el frame
-        try:
-            for i in frame.children :
-                frame.children[i].pack_forget()
-        except:
-            pass
+        elementos= list(frame.children)
+        for i in elementos:
+            frame.children[i].destroy()
         
         # Se recorren los elementos
         for texto in textos:
@@ -215,8 +213,9 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
                         ctk.CTkLabel(frame, text=texto ).pack(side="left")
 
     def borrar_opciones(ventana):
-        for i in ventana.opciones.children :
-                ventana.opciones.children[i].pack_forget()
+        elementos= list(ventana.opciones.children)
+        for i in elementos :
+                ventana.opciones.children[i].destroy()
     
     def opciones_multiples(ventana):
         # Borrar Datos
@@ -391,11 +390,9 @@ class Ventana_Habilidades(ctk.CTkFrame):
     # Funciones Visuales
     def mensaje(ventana, frame, textos, tipo=""):
         # Borrar posibles elementos en el frame
-        try:
-            for i in frame.children :
-                frame.children[i].pack_forget()
-        except:
-            pass
+        elementos= list(frame.children)
+        for i in elementos :
+                frame.children[i].destroy()
         
         # Se recorren los elementos
         for texto in textos:
@@ -415,9 +412,9 @@ class Ventana_Habilidades(ctk.CTkFrame):
                         ctk.CTkLabel(frame, text=texto ).pack(side="left")
      
     def borrar_opciones(ventana):
-        for i in ventana.opciones.children :
-                ventana.opciones.children[i].pack_forget()
-   
+        elementos = list(ventana.opciones.children)
+        for i in elementos :
+                ventana.opciones.children[i].destroy()
     def opciones_multiples(ventana):
         # Borrar Datos
         ventana.ruta.set("")
