@@ -147,6 +147,6 @@ if __name__== "__main__":
     #print(conversor_l_gal(150,False))
 
     #guardias= [8,8,8]          # Pathfinder
-    guardias= [6,6,6]          # D&D
-    calcula_guardias(guardias)
+    #guardias= [6,6,6]          # D&D
+    #calcula_guardias(guardias)
     pass
