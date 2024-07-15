@@ -43,7 +43,8 @@ class App(ctk.CTk):
     def cambiar_ventana(app, funcion):
         # Eliminar las ventas que estubieran antes
         for i in app.grid_slaves(column=1, row=0) :
-            i.grid_remove()
+            #i.grid_remove()
+            i.destroy()
 
         ventana = funcion(app)
         ventana.grid(column=1, row=0, sticky="snew")
