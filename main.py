@@ -24,11 +24,13 @@ class App(ctk.CTk):
             "Lugar Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Lugar),
             "Personaje Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Personaje),
             "Conversores": lambda: app.cambiar_ventana(anyr.Ventana_Conversor),
+            "Tiempo de Guardia": lambda: app.cambiar_ventana(anyr.Ventana_Guardias),
             # SWADE
             "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
             "Atributo como Dado Salvaje": lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes),
             "Poner Habilidades Base": lambda: app.cambiar_ventana(sw.Ventana_Habilidades),
             "Aumentos por Rango": lambda: app.cambiar_ventana(sw.Ventana_Avances),
+            # D&D
         }
         Frame_Menu(app,opciones=lista_menu).colocar()
 

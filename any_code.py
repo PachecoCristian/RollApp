@@ -4,7 +4,6 @@ from random import randint
 from re import compile, S as dot
 import math
 
-
      
 # Modulos / Metodos
 def letra_aleatoria():
@@ -113,6 +112,22 @@ def conversor_l_gal(n, es_l):
         resultado = n*3.785411784
         resultado= round(resultado, 2)
     return resultado
+
+def calcula_guardias(horas_personajes):
+    total= 0
+    n_peronajes = len(horas_personajes)
+
+    for i in horas_personajes:
+        total += float(i)
+
+    if n_peronajes >1 :
+        total = total/(n_peronajes-1)
+    else:
+        total = total/(1)
+        
+    return total
+
+
 # Ejecución pruebas
 if __name__== "__main__":
     #letra_aleatoria()
@@ -131,5 +146,7 @@ if __name__== "__main__":
     #print(conversor_l_gal(150,True))
     #print(conversor_l_gal(150,False))
 
-
+    #guardias= [8,8,8]          # Pathfinder
+    guardias= [6,6,6]          # D&D
+    calcula_guardias(guardias)
     pass

@@ -402,3 +402,72 @@ class Ventana_Conversor(ctk.CTkFrame):
             ventana.boton_cantidad.configure(text="⬆")
         else:
             ventana.boton_cantidad.configure(text="⬇")
+
+class Ventana_Guardias(ctk.CTkFrame):
+    def __init__(ventana, master):
+        super().__init__(master= master)
+
+        # Crear la (Sub-ventana)
+        ventana.frame = ctk.CTkFrame(ventana)
+        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+
+         # Datos
+        ventana.texto = ctk.StringVar(value="")
+
+        # Crear Frame para "personajes"
+        ventana.personajes = ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        ventana.personajes.pack()
+
+        # Crear hueco para el primer Personaje
+        ventana.crea_personaje()
+
+        # Crear un frame para las opciones que no se borran
+        opciones = ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        opciones.pack()
+        # Frame para los botones
+        botones = ctk.CTkFrame(opciones, fg_color="transparent")
+        botones.pack()
+        # Crear botones para añadir personajes y calcultar total
+        ctk.CTkButton(botones, text="Añadir Personaje", command=ventana.crea_personaje).pack(side="left", padx=10)
+        ctk.CTkButton(botones, text="Calcular Total", command=ventana.calcula_total).pack(side="left", padx=10)
+        ctk.CTkButton(botones, text="Borrar", command=ventana.borrar_pjs).pack(side="left", padx=10)
+        # Crear un texto donde saldran los resultados
+        ctk.CTkLabel(opciones, textvariable=ventana.texto).pack()
+
+
+    def crea_personaje(ventana):
+        pj = ctk.CTkFrame(ventana.personajes, fg_color="transparent")
+        pj.pack( pady=5)
+        
+        ctk.CTkLabel(pj, text="Horas de Sueño").pack(side="left", padx=10)
+        ctk.CTkEntry(pj ).pack(side="left")
+
+        ventana.personajes.update()
+    
+    def calcula_total(ventana):
+        personajes= []
+        # Obtener información de todos los Entry de ventana.personajes
+        regex_frame = compile('.*frame.*',dot)
+        regex_entry = compile('.*entry.*',dot)
+        for i in ventana.personajes.children:
+            if regex_frame.match(i) != None:
+                for e in ventana.personajes.children[i].children:
+                    if regex_entry.match(e) != None:
+                        #print(ventana.personajes.children[i].children[e].get())
+                        horas= 0
+                        try:
+                            horas = float(ventana.personajes.children[i].children[e].get())
+                        except:
+                            ventana.texto.set("Valor introducido invalido")
+                        personajes.append(horas)
+
+        result =calcula_guardias(personajes)
+        ventana.texto.set(result)
+    
+    def borrar_pjs(ventana):
+        regex_frame = compile('.*frame.*',dot)
+        lista= list(ventana.personajes.children)
+        for i in lista:
+            if regex_frame.match(i) != None:
+                ventana.personajes.children[i].destroy()
+        ventana.crea_personaje()
