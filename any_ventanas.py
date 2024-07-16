@@ -1,15 +1,18 @@
 import customtkinter as ctk
+
 from configuracion import *
+from componentes import *
+
 from any_code import *
 
 # Ventanas de Aplicaciones
 class Ventana_Nombre(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_ventana(ventana, theme)
+        frame.colocar()
+
         # Datos
         ventana.nombre = ctk.StringVar(value="")
         ventana.opciones = ctk.StringVar(value="")
@@ -75,12 +78,12 @@ class Ventana_Nombre(ctk.CTkFrame):
                 ventana.botones.children[i].destroy()
 
 class Ventana_Lugar(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_ventana(ventana, theme)
+        ventana.frame.colocar()
+        
         # Datos
         ventana.nombre = ctk.StringVar(value="")
         ventana.nombre_ref = ""
@@ -142,12 +145,12 @@ class Ventana_Lugar(ctk.CTkFrame):
                 ventana.frame.children[i].destroy()
 
 class Ventana_Personaje(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_ventana(ventana, theme)
+        ventana.frame.colocar()
+        
         # Datos
         ventana.nombre = ctk.StringVar(value="")
         ventana.opciones = ctk.StringVar(value="")
@@ -235,12 +238,11 @@ class Ventana_Personaje(ctk.CTkFrame):
                 ventana.botones.children[i].destroy()
 
 class Ventana_Conversor(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_ventana(ventana, theme)
+        ventana.frame.colocar()
 
         # Datos
         ventana.m= ctk.StringVar()
@@ -406,12 +408,11 @@ class Ventana_Conversor(ctk.CTkFrame):
             ventana.boton_cantidad.configure(text="⬇")
 
 class Ventana_Guardias(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_ventana(ventana, theme)
+        ventana.frame.colocar()
 
          # Datos
         ventana.texto = ctk.StringVar(value="")

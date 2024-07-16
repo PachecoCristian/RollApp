@@ -1,17 +1,19 @@
 import customtkinter as ctk
+
 from configuracion import *
+from componentes import *
+
 from swade_code import *
 
 import os
 
 # Ventanas de Aplicaciones
 class Ventana_Probalidades(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_ventana(ventana, theme)
+        frame.colocar()
 
         frame.columnconfigure((0,1,2), weight=1, uniform="a")
         frame.rowconfigure((0,1,2,3,4), weight=1, uniform="a")
@@ -57,12 +59,11 @@ class Ventana_Probalidades(ctk.CTkFrame):
         ventana.resultado.set(f"Probabilidad: {resultado}%")
 
 class Ventana_Dados_Salvajes(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_ventana(ventana, theme)
+        frame.colocar()
 
         # Datos
         ventana.ruta = ctk.StringVar()
@@ -250,12 +251,11 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
             ctk.CTkButton(ventana.opciones, text="Cambiar Dados", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
    
 class Ventana_Habilidades(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_ventana(ventana, theme)
+        frame.colocar()
 
         # Datos
         ventana.ruta = ctk.StringVar()
@@ -450,12 +450,11 @@ class Ventana_Habilidades(ctk.CTkFrame):
             ctk.CTkButton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
             
 class Ventana_Avances(ctk.CTkFrame):
-    def __init__(ventana, master):
+    def __init__(ventana, master, theme):
         super().__init__(master= master)
-
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_ventana(ventana, theme)
+        frame.colocar()
 
         # Datos
         ventana.aumentos_actu = ctk.StringVar()
