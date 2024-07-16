@@ -1,3 +1,10 @@
+THEMES={
+    # Nombre    : Boton Menu,   Boton Normal,   Fondo
+    "any"   :["#808080",    "#666666",      "#1A1A1A"],
+    "swade"     :["#1f6aa5",    "#1B5079",      "#030508"],
+    "dyd"       :["#e70811",    "#B10B11",      "#1F0506"],
+}
+
 SWADE_DADOS=[
     "None",
     "D4",

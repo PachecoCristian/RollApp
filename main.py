@@ -19,22 +19,22 @@ class App(ctk.CTk):
         app.rowconfigure(0, weight=1, uniform="a")
 
     #Componentes
-        lista_menu= {
+        lista_menu= [
             # Any System
-            "Nombre Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Nombre),
-            "Lugar Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Lugar),
-            "Personaje Aleatorio": lambda: app.cambiar_ventana(anyr.Ventana_Personaje),
-            "Conversores": lambda: app.cambiar_ventana(anyr.Ventana_Conversor),
-            "Tiempo de Guardia": lambda: app.cambiar_ventana(anyr.Ventana_Guardias),
+            ["Nombre Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Nombre),"any"],
+            ["Lugar Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Lugar),"any"],
+            ["Personaje Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Personaje),"any"],
+            ["Conversores", lambda: app.cambiar_ventana(anyr.Ventana_Conversor),"any"],
+            ["Tiempo de Guardia", lambda: app.cambiar_ventana(anyr.Ventana_Guardias),"any"],
             # SWADE
-            "Probabilidad Dado SWADE": lambda: app.cambiar_ventana(sw.Ventana_Probalidades),
-            "Atributo como Dado Salvaje": lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes),
-            "Poner Habilidades Base": lambda: app.cambiar_ventana(sw.Ventana_Habilidades),
-            "Aumentos por Rango": lambda: app.cambiar_ventana(sw.Ventana_Avances),
+            ["Probabilidad Dado SWADE", lambda: app.cambiar_ventana(sw.Ventana_Probalidades),"swade"],
+            ["Atributo como Dado Salvaje", lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes),"swade"],
+            ["Poner Habilidades Base", lambda: app.cambiar_ventana(sw.Ventana_Habilidades),"swade"],
+            ["Aumentos por Rango", lambda: app.cambiar_ventana(sw.Ventana_Avances),"swade"],
             # D&D
-            "Puntos de Vida": lambda: app.cambiar_ventana(dyd.Ventana_Puntos_Vida),
-        }
-        Frame_Menu(app,opciones=lista_menu).colocar()
+            ["Puntos de Vida", lambda: app.cambiar_ventana(dyd.Ventana_Puntos_Vida),"dyd"],
+        ]
+        Frame_Menu(app, opciones=lista_menu).colocar()
 
         app.main = Frame_Principal(app)
         app.main.colocar()
@@ -53,12 +53,12 @@ class App(ctk.CTk):
 # Creación de los componentes
 class Frame_Menu(ctk.CTkFrame):
     def __init__(menu, master, opciones):
-        super().__init__(master, fg_color="gray", corner_radius= 0)
+        super().__init__(master, fg_color="transparent", corner_radius= 0)
         menu.columnconfigure(0, weight=1, uniform="b")
         i=0
-        for nombre, funcion in  opciones.items():
+        for opc in opciones:
             menu.rowconfigure(i, weight=1, uniform="b")
-            ctk.CTkButton(menu, text= nombre, command= funcion).grid(column=0, row=i, padx =10, pady=15)
+            Boton_Menu(menu, text= opc[0], command= opc[1], theme=opc[2]).grid(column=0, row=i, padx =10, pady=15)
             i+=1
 
     def colocar(self):
@@ -66,10 +66,22 @@ class Frame_Menu(ctk.CTkFrame):
 
 class Frame_Principal(ctk.CTkFrame):
     def __init__(self, master, ):
-        super().__init__(master, fg_color="white", corner_radius= 0)
+        super().__init__(master, corner_radius= 0)
 
     def colocar(self):
         self.grid(column=1, row=0, sticky="snew")
+
+class Boton(ctk.CTkButton):
+    def __init__(self, master, text, command, theme):
+        super().__init__(master, text= text, command=command, fg_color=THEMES[theme][1])
+
+class Boton_Menu(Boton):
+    def __init__(self, master, text, command, theme):
+        super().__init__(master, text, command, theme)
+        self.configure(fg_color=THEMES[theme][0])
+        self.configure(corner_radius=0)
+
+    
 
 
 # Ejecutar el codigo para crear la ventanas
