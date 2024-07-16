@@ -23,10 +23,10 @@ class Ventana_Puntos_Vida(ctk.CTkFrame):
         ventana.crear_clase()
         # Crear Frame para opciones Generales
         ventana.opciones = ctk.CTkFrame(frame, fg_color="transparent")
-        ventana.opciones.pack()
+        ventana.opciones.pack(pady=0)
 
         frame1= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
-        frame1.pack(side="left", padx=10, pady=5)
+        frame1.pack(side="left", padx=10)
         ctk.CTkLabel(frame1, text="Mod Constitución").pack()
         ctk.CTkEntry(frame1, textvariable= ventana.mod_con).pack()
         frame2= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
@@ -37,14 +37,14 @@ class Ventana_Puntos_Vida(ctk.CTkFrame):
         frame3.pack(side="left", padx=10)
         ctk.CTkLabel(frame3, text="Mod Vida").pack()
         ctk.CTkEntry(frame3, textvariable= ventana.mod_static).pack()
-        frame4= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
-        frame4.pack(side="left", padx=10)
+        frame4= ctk.CTkFrame(frame, fg_color="transparent")
+        frame4.pack()
         ctk.CTkLabel(frame4, text="Valor HD").pack()
         ctk.CTkOptionMenu(frame4,values=VALORES_HIT_DICE, variable= ventana.tipo).pack()
 
         # Crear Frame para los botones
         ventana.botones = ctk.CTkFrame(frame, fg_color="transparent")
-        ventana.botones.pack()
+        ventana.botones.pack(pady=10)
         # Crear los botones
         ctk.CTkButton(ventana.botones, text= "Añadir Sub-Clase", command= ventana.crear_clase).pack(side="left", padx=10)
         ctk.CTkButton(ventana.botones, text= "Calcular Vida", command= ventana.calcular_vida).pack(side="left", padx=10)
@@ -91,7 +91,6 @@ class Ventana_Puntos_Vida(ctk.CTkFrame):
                             if regex_entry.match(i3) != None or regex_optionmenu.match(i3):
                                 clase.append(ventana.clases.children[i1].children[i2].children[i3].get())
                 clases.append(clase)
-        #print(clases)
         mod_con= 0
         mod_nivel= 0
         mod_estatico= 0
@@ -107,8 +106,6 @@ class Ventana_Puntos_Vida(ctk.CTkFrame):
         except:
             ventana.texto.set("Los valores deben ser numeros")
         tipo= ventana.tipo.get()
-
-        # clases [['Fighter', 0, 5, 0]]
         # clase [( Nombre Clase, Dado de Golpe, nº Niveles, Mod_lv)]
         hp= calcula_multiclase(clases, mod_con, mod_nivel, mod_estatico, tipo)
         ventana.texto.set(f"Vida = {hp}")
