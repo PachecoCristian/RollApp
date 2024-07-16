@@ -1,28 +1,34 @@
 import customtkinter as ctk
+
 from configuracion import *
+from componentes import *
+
 from any_code import *
 
 # Ventanas de Aplicaciones
-class Ventana_Nombre(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Nombre(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
+
+        # Colores
+        ventana.theme= theme
+
         # Datos
         ventana.nombre = ctk.StringVar(value="")
         ventana.opciones = ctk.StringVar(value="")
         # Componentes
         # Textos
-        textos = ctk.CTkFrame(frame, fg_color="transparent")
+        textos = Div(frame)
         textos.pack(fill="x", padx=10, pady=5)
-        ctk.CTkLabel(textos, textvariable= ventana.nombre,font=ctk.CTkFont(size=20)).pack(fill="x")
-        ctk.CTkLabel(textos, textvariable= ventana.opciones).pack(fill="x")
+        Texto(textos, variable= ventana.nombre, font=ctk.CTkFont(size=20)).pack(fill="x")
+        Texto(textos, variable= ventana.opciones).pack(fill="x")
         # Botones
-        ventana.botones = ctk.CTkFrame(frame, fg_color="transparent")
+        ventana.botones = Div(frame)
         ventana.botones.pack(padx=10, pady=5)
-        ctk.CTkButton(ventana.botones, text= "Nombre", command= ventana.nombre_aleatorio).pack()
+        Boton(ventana.botones, text= "Nombre", command= ventana.nombre_aleatorio, theme= ventana.theme).pack()
     
     def nombre_aleatorio(ventana):
         ventana.opciones.set("")
@@ -58,40 +64,43 @@ class Ventana_Nombre(ctk.CTkFrame):
         ventana.opciones.set("")
 
         ventana.elimina_botones()
-        ctk.CTkButton(ventana.botones, text= "Nombre", command= ventana.nombre_aleatorio).pack()
+        Boton(ventana.botones, text= "Nombre", command= ventana.nombre_aleatorio, theme= ventana.theme).pack()
     
     # Funciones Visuales
     def cambiar_botones(ventana):
         ventana.elimina_botones()
 
-        ctk.CTkButton(ventana.botones, text= "Nueva Letra", command= ventana.nueva_letra).pack(side="left", padx=10, pady=5)
-        ctk.CTkButton(ventana.botones, text= "Borrar", command= ventana.borrar).pack(side="left", padx=10, pady=5)
+        Boton(ventana.botones, text= "Nueva Letra", command= ventana.nueva_letra, theme= ventana.theme).pack(side="left", padx=10, pady=5)
+        Boton(ventana.botones, text= "Borrar", command= ventana.borrar, theme= ventana.theme).pack(side="left", padx=10, pady=5)
     
     def elimina_botones(ventana):
-        regex = compile('.*button.*',dot)
+        regex = compile('.*boton.*',dot)
         elementos= list(ventana.botones.children)
         for i in elementos :
             if regex.match(i) != None:
                 ventana.botones.children[i].destroy()
 
-class Ventana_Lugar(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Lugar(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_Ventana(ventana, theme)
+        ventana.frame.colocar()
+
+        # Colores
+        ventana.theme= theme
+        
         # Datos
         ventana.nombre = ctk.StringVar(value="")
         ventana.nombre_ref = ""
         ventana.descripcion_1 = ctk.StringVar(value="")
         ventana.descripcion_2 = ctk.StringVar(value="")
         # Componentes
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.nombre, font=ctk.CTkFont(size=20)).pack(fill="x", padx=10, pady=5)
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.descripcion_1).pack(fill="x", padx=10, pady=5)
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.descripcion_2).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.nombre, font=ctk.CTkFont(size=20)).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.descripcion_1).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.descripcion_2).pack(fill="x", padx=10, pady=5)
         
-        ctk.CTkButton(ventana.frame, text= "Lugar", command= ventana.lugar_aleatorio).pack(padx=10, pady=5)
+        Boton(ventana.frame, text= "Lugar", command= ventana.lugar_aleatorio, theme=ventana.theme).pack(padx=10, pady=5)
 
     def lugar_aleatorio(ventana):
         # Datos
@@ -105,9 +114,9 @@ class Ventana_Lugar(ctk.CTkFrame):
         ventana.descripcion_2.set(f'Descripción: "{desc_2[0]}" - "{desc_2[1]}"')
         # Componentes
         ventana.elimina_botones()
-        ctk.CTkButton(ventana.frame, text= "Cambiar Adjetivos", command= ventana.cambiar_adj).pack(padx=10, pady=5)
-        ctk.CTkButton(ventana.frame, text= "Cambiar Descripciones", command= ventana.cambiar_des).pack(padx=10, pady=5)
-        ctk.CTkButton(ventana.frame, text= "Borrar", command= ventana.borrar).pack(padx=10, pady=5)
+        Boton(ventana.frame, text= "Cambiar Adjetivos", command= ventana.cambiar_adj, theme=ventana.theme).pack(padx=10, pady=5)
+        Boton(ventana.frame, text= "Cambiar Descripciones", command= ventana.cambiar_des, theme=ventana.theme).pack(padx=10, pady=5)
+        Boton(ventana.frame, text= "Borrar", command= ventana.borrar, theme=ventana.theme).pack(padx=10, pady=5)
 
     def cambiar_adj(ventana):
         # Datos
@@ -130,24 +139,26 @@ class Ventana_Lugar(ctk.CTkFrame):
         ventana.descripcion_2.set(value="")
         # Componentes
         ventana.elimina_botones()
-        ctk.CTkButton(ventana.frame, text= "Lugar", command= ventana.lugar_aleatorio).pack(padx=10, pady=5)
-
+        Boton(ventana.frame, text= "Lugar", command= ventana.lugar_aleatorio, theme=ventana.theme).pack(padx=10, pady=5)
 
     # Funciones visuales
     def elimina_botones(ventana):
-        regex = compile(r'.*button.*',dot)
+        regex = compile(r'.*boton.*',dot)
         elementos= list(ventana.frame.children)
         for i in elementos :
             if regex.match(i) != None:
                 ventana.frame.children[i].destroy()
 
-class Ventana_Personaje(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Personaje(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_Ventana(ventana, theme)
+        ventana.frame.colocar()
+        
+        # Colores
+        ventana.theme= theme
+
         # Datos
         ventana.nombre = ctk.StringVar(value="")
         ventana.opciones = ctk.StringVar(value="")
@@ -155,17 +166,17 @@ class Ventana_Personaje(ctk.CTkFrame):
         ventana.personalidad = ctk.StringVar(value="")
         ventana.descripcion = ctk.StringVar(value="")
         # Componentes
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.nombre, font=ctk.CTkFont(size=20)).pack(fill="x", padx=10, pady=5)
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.opciones, font=ctk.CTkFont(size=10)).pack(fill="x")
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.apariecia).pack(fill="x", padx=10, pady=5)
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.personalidad).pack(fill="x", padx=10, pady=5)
-        ctk.CTkLabel(ventana.frame, textvariable= ventana.descripcion).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.nombre, font=ctk.CTkFont(size=20)).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.opciones, font=ctk.CTkFont(size=10)).pack(fill="x")
+        Texto(ventana.frame, variable= ventana.apariecia).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.personalidad).pack(fill="x", padx=10, pady=5)
+        Texto(ventana.frame, variable= ventana.descripcion).pack(fill="x", padx=10, pady=5)
         
-        ventana.botones= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        ventana.botones= Div(ventana.frame)
         ventana.botones.columnconfigure((0,1), weight=1)
         ventana.botones.rowconfigure((0,1,2), weight=1)
         ventana.botones.pack(fill="x")
-        ctk.CTkButton(ventana.botones, text= "Personaje", command= ventana.npc_aleatorio).grid(column=0, columnspan=2, row=1, padx=10, pady=5)
+        Boton(ventana.botones, text= "Personaje", command= ventana.npc_aleatorio, theme= ventana.theme).grid(column=0, columnspan=2, row=1, padx=10, pady=5)
 
     def npc_aleatorio(ventana):
 
@@ -176,11 +187,11 @@ class Ventana_Personaje(ctk.CTkFrame):
 
         # Componentes
         ventana.elimina_botones()
-        ctk.CTkButton(ventana.botones, text= "Cambiar Nombre", command= ventana.cambiar_nombre).grid(column=0, row=0, padx=10, pady=5)
-        ctk.CTkButton(ventana.botones, text= "Cambiar Apariencia", command= ventana.cambiar_apear).grid(column=1, row=0, padx=10, pady=5)
-        ctk.CTkButton(ventana.botones, text= "Cambiar Personalidad", command= ventana.cambiar_perso).grid(column=0, row=1, padx=10, pady=5)
-        ctk.CTkButton(ventana.botones, text= "Cambiar Descripción", command= ventana.cambiar_des).grid(column=1, row=1, padx=10, pady=5)
-        ctk.CTkButton(ventana.botones, text= "Borrar", command= ventana.borrar).grid(column=0,columnspan=2, row=2, padx=10, pady=5)
+        Boton(ventana.botones, text= "Cambiar Nombre", command= ventana.cambiar_nombre, theme= ventana.theme).grid(column=0, row=0, padx=10, pady=5)
+        Boton(ventana.botones, text= "Cambiar Apariencia", command= ventana.cambiar_apear, theme= ventana.theme).grid(column=1, row=0, padx=10, pady=5)
+        Boton(ventana.botones, text= "Cambiar Personalidad", command= ventana.cambiar_perso, theme= ventana.theme).grid(column=0, row=1, padx=10, pady=5)
+        Boton(ventana.botones, text= "Cambiar Descripción", command= ventana.cambiar_des, theme= ventana.theme).grid(column=1, row=1, padx=10, pady=5)
+        Boton(ventana.botones, text= "Borrar", command= ventana.borrar, theme= ventana.theme).grid(column=0,columnspan=2, row=2, padx=10, pady=5)
 
     def cambiar_nombre(ventana):
         nombre = ""
@@ -199,7 +210,6 @@ class Ventana_Personaje(ctk.CTkFrame):
 
         ventana.nombre.set(f"Nombre: {nombre}")
         ventana.opciones.set(opciones)
-
 
     def cambiar_apear(ventana):
         apariecia = apariecia_personaje_aleatorio()
@@ -223,24 +233,25 @@ class Ventana_Personaje(ctk.CTkFrame):
 
         # Componentes
         ventana.elimina_botones()
-        ctk.CTkButton(ventana.botones, text= "Personaje", command= ventana.npc_aleatorio).grid(column=0, columnspan=2, row=1, padx=10, pady=5)
-
+        Boton(ventana.botones, text= "Personaje", command= ventana.npc_aleatorio, theme= ventana.theme).grid(column=0, columnspan=2, row=1, padx=10, pady=5)
 
     # Funciones visuales
     def elimina_botones(ventana):
-        regex = compile(r'.*button.*',dot)
+        regex = compile(r'.*boton.*',dot)
         elementos= list(ventana.botones.children)
         for i in elementos :
             if regex.match(i) != None:
                 ventana.botones.children[i].destroy()
 
-class Ventana_Conversor(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Conversor(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_Ventana(ventana, theme)
+        ventana.frame.colocar()
+
+        # Colores
+        ventana.theme= theme
 
         # Datos
         ventana.m= ctk.StringVar()
@@ -258,74 +269,74 @@ class Ventana_Conversor(ctk.CTkFrame):
         ventana.es_l= ctk.BooleanVar(value=False)
 
         # Distancia
-        frame_distancia= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        frame_distancia= Div(ventana.frame)
         frame_distancia.pack(expand=True, fill="x")
             # Titulo
-        ctk.CTkLabel(frame_distancia, text="Distancia", font=ctk.CTkFont(size=20)).pack()
+        Texto(frame_distancia, text="Distancia", font=ctk.CTkFont(size=20)).pack()
             # 1º linea
-        frame_d1= ctk.CTkFrame(frame_distancia, fg_color="transparent")
+        frame_d1= Div(frame_distancia)
         frame_d1.pack(expand=True, fill="x", pady=5)
-        ctk.CTkEntry(frame_d1, textvariable= ventana.feet).pack(side="left")
-        ctk.CTkLabel(frame_d1, text="Feet").pack(side="left", padx=10)
-        ctk.CTkEntry(frame_d1, textvariable= ventana.inch).pack(side="left")
-        ctk.CTkLabel(frame_d1, text="Inches").pack(side="left", padx=10)
+        Entrada(frame_d1, variable= ventana.feet).pack(side="left")
+        Texto(frame_d1, text="Feet").pack(side="left", padx=10)
+        Entrada(frame_d1, variable= ventana.inch).pack(side="left")
+        Texto(frame_d1, text="Inches").pack(side="left", padx=10)
             # 2º Linea
-        frame_d2= ctk.CTkFrame(frame_distancia, fg_color="transparent")
+        frame_d2= Div(frame_distancia)
         frame_d2.pack(expand=True, pady=5)
-        ventana.boton_distancia= ctk.CTkButton(frame_d2, text= "⬇", command= ventana.calcular_distancia)
+        ventana.boton_distancia= Boton(frame_d2, text= "⬇", command= ventana.calcular_distancia, theme=ventana.theme)
         ventana.boton_distancia.pack(side="left")
-        ctk.CTkCheckBox(frame_d2, text= "Cambiar", variable=ventana.es_m, command= ventana.cambiar_distancia).pack(side="left", padx=10)
+        CheckBox(frame_d2, text= "Cambiar", variable=ventana.es_m, command= ventana.cambiar_distancia, theme=ventana.theme).pack(side="left", padx=10)
             # 3º Linea
-        frame_d3= ctk.CTkFrame(frame_distancia, fg_color="transparent")
+        frame_d3= Div(frame_distancia)
         frame_d3.pack(expand=True, pady=5)
-        ctk.CTkEntry(frame_d3, textvariable= ventana.m).pack(side="left")
-        ctk.CTkLabel(frame_d3, text="Metros").pack(side="left", padx=10)
+        Entrada(frame_d3, variable= ventana.m).pack(side="left")
+        Texto(frame_d3, text="Metros").pack(side="left", padx=10)
 
         # Peso
-        frame_peso= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        frame_peso= Div(ventana.frame)
         frame_peso.pack(expand=True, fill="x", pady=10)
             # Titulo
-        ctk.CTkLabel(frame_peso, text="Peso", font=ctk.CTkFont(size=20)).pack()
+        Texto(frame_peso, text="Peso", font=ctk.CTkFont(size=20)).pack()
             # 1º linea
-        frame_p1= ctk.CTkFrame(frame_peso, fg_color="transparent")
+        frame_p1= Div(frame_peso)
         frame_p1.pack(expand=True, fill="x", pady=5)
-        ctk.CTkEntry(frame_p1, textvariable= ventana.lb).pack(side="left")
-        ctk.CTkLabel(frame_p1, text="Pound").pack(side="left", padx=10)
-        ctk.CTkEntry(frame_p1, textvariable= ventana.oz).pack(side="left")
-        ctk.CTkLabel(frame_p1, text="Ounces").pack(side="left", padx=10)
+        Entrada(frame_p1, variable= ventana.lb).pack(side="left")
+        Texto(frame_p1, text="Pound").pack(side="left", padx=10)
+        Entrada(frame_p1, variable= ventana.oz).pack(side="left")
+        Texto(frame_p1, text="Ounces").pack(side="left", padx=10)
             # 2º Linea
-        frame_p2= ctk.CTkFrame(frame_peso, fg_color="transparent")
+        frame_p2= Div(frame_peso)
         frame_p2.pack(expand=True, pady=5)
-        ventana.boton_peso= ctk.CTkButton(frame_p2, text= "⬇", command= ventana.calcular_peso)
+        ventana.boton_peso= Boton(frame_p2, text= "⬇", command= ventana.calcular_peso, theme=ventana.theme)
         ventana.boton_peso.pack(side="left")
-        ctk.CTkCheckBox(frame_p2, text= "Cambiar", variable=ventana.es_kg, command= ventana.cambiar_peso).pack(side="left", padx=10)
+        CheckBox(frame_p2, text= "Cambiar", variable=ventana.es_kg, command= ventana.cambiar_peso, theme=ventana.theme).pack(side="left", padx=10)
             # 3º Linea
-        frame_p3= ctk.CTkFrame(frame_peso, fg_color="transparent")
+        frame_p3= Div(frame_peso)
         frame_p3.pack(expand=True, pady=5)
-        ctk.CTkEntry(frame_p3, textvariable= ventana.kg).pack(side="left")
-        ctk.CTkLabel(frame_p3, text="Kilos").pack(side="left", padx=10)
+        Entrada(frame_p3, variable= ventana.kg).pack(side="left")
+        Texto(frame_p3, text="Kilos").pack(side="left", padx=10)
             
         # Cantidad
-        frame_cantidad= ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        frame_cantidad= Div(ventana.frame)
         frame_cantidad.pack(expand=True, fill="x")
             # Titulo
-        ctk.CTkLabel(frame_cantidad, text="Cantidad", font=ctk.CTkFont(size=20)).pack()
+        Texto(frame_cantidad, text="Cantidad", font=ctk.CTkFont(size=20)).pack()
             # 1º linea
-        frame_c1= ctk.CTkFrame(frame_cantidad, fg_color="transparent")
+        frame_c1= Div(frame_cantidad)
         frame_c1.pack(expand=True, pady=5)
-        ctk.CTkEntry(frame_c1, textvariable= ventana.gal).pack(side="left")
-        ctk.CTkLabel(frame_c1, text="Gallon").pack(side="left", padx=10)
+        Entrada(frame_c1, variable= ventana.gal).pack(side="left")
+        Texto(frame_c1, text="Gallon").pack(side="left", padx=10)
             # 2º Linea
-        frame_c2= ctk.CTkFrame(frame_cantidad, fg_color="transparent")
+        frame_c2= Div(frame_cantidad)
         frame_c2.pack(expand=True, pady=5)
-        ventana.boton_cantidad= ctk.CTkButton(frame_c2, text= "⬇", command= ventana.calcular_cantidad)
+        ventana.boton_cantidad= Boton(frame_c2, text= "⬇", command= ventana.calcular_cantidad, theme=ventana.theme)
         ventana.boton_cantidad.pack(side="left")
-        ctk.CTkCheckBox(frame_c2, text= "Cambiar", variable=ventana.es_l, command= ventana.cambiar_cantidad).pack(side="left", padx=10)
+        CheckBox(frame_c2, text= "Cambiar", variable=ventana.es_l, command= ventana.cambiar_cantidad, theme=ventana.theme).pack(side="left", padx=10)
             # 3º Linea
-        frame_c3= ctk.CTkFrame(frame_cantidad, fg_color="transparent")
+        frame_c3= Div(frame_cantidad)
         frame_c3.pack(expand=True, pady=5)
-        ctk.CTkEntry(frame_c3, textvariable= ventana.l).pack(side="left")
-        ctk.CTkLabel(frame_c3, text="Litros").pack(side="left", padx=10)
+        Entrada(frame_c3, variable= ventana.l).pack(side="left")
+        Texto(frame_c3, text="Litros").pack(side="left", padx=10)
     
     def calcular_distancia(ventana):
         if ventana.es_m.get():
@@ -405,57 +416,58 @@ class Ventana_Conversor(ctk.CTkFrame):
         else:
             ventana.boton_cantidad.configure(text="⬇")
 
-class Ventana_Guardias(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Guardias(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        ventana.frame = ctk.CTkFrame(ventana)
-        ventana.frame.place(relx=0.5, rely=0.5, anchor="center")
+        ventana.frame = Frame_Ventana(ventana, theme)
+        ventana.frame.colocar()
+        
+        # Colores
+        ventana.theme= theme
 
-         # Datos
+        # Datos
         ventana.texto = ctk.StringVar(value="")
 
         # Crear Frame para "personajes"
-        ventana.personajes = ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        ventana.personajes= Div(ventana.frame)
         ventana.personajes.pack()
 
         # Crear hueco para el primer Personaje
         ventana.crea_personaje()
 
         # Crear un frame para las opciones que no se borran
-        opciones = ctk.CTkFrame(ventana.frame, fg_color="transparent")
+        opciones= Div(ventana.frame)
         opciones.pack()
         # Frame para los botones
-        botones = ctk.CTkFrame(opciones, fg_color="transparent")
+        botones= Div(opciones)
         botones.pack()
         # Crear botones para añadir personajes y calcultar total
-        ctk.CTkButton(botones, text="Añadir Personaje", command=ventana.crea_personaje).pack(side="left", padx=10)
-        ctk.CTkButton(botones, text="Calcular Total", command=ventana.calcula_total).pack(side="left", padx=10)
-        ctk.CTkButton(botones, text="Borrar", command=ventana.borrar_pjs).pack(side="left", padx=10)
-        # Crear un texto donde saldran los resultados
-        ctk.CTkLabel(opciones, textvariable=ventana.texto).pack()
+        Boton(botones, text="Añadir Personaje", command=ventana.crea_personaje, theme= ventana.theme).pack(side="left", padx=10)
+        Boton(botones, text="Calcular Total", command=ventana.calcula_total, theme= ventana.theme).pack(side="left", padx=10)
+        Boton(botones, text="Borrar", command=ventana.borrar_pjs, theme= ventana.theme).pack(side="left", padx=10)
 
+        # Crear un texto donde saldran los resultados
+        Texto(opciones, variable=ventana.texto).pack()
 
     def crea_personaje(ventana):
-        pj = ctk.CTkFrame(ventana.personajes, fg_color="transparent")
+        pj= Div(ventana.personajes)
         pj.pack( pady=5)
         
-        ctk.CTkLabel(pj, text="Horas de Sueño").pack(side="left", padx=10)
-        ctk.CTkEntry(pj ).pack(side="left")
+        Texto(pj, text="Horas de Sueño").pack(side="left", padx=10)
+        Entrada(pj).pack(side="left")
 
         ventana.personajes.update()
     
     def calcula_total(ventana):
         personajes= []
         # Obtener información de todos los Entry de ventana.personajes
-        regex_frame = compile('.*frame.*',dot)
-        regex_entry = compile('.*entry.*',dot)
+        regex_frame = compile('.*div.*',dot)
+        regex_entry = compile('.*entrada.*',dot)
         for i in ventana.personajes.children:
             if regex_frame.match(i) != None:
                 for e in ventana.personajes.children[i].children:
                     if regex_entry.match(e) != None:
-                        #print(ventana.personajes.children[i].children[e].get())
                         horas= 0
                         try:
                             horas = float(ventana.personajes.children[i].children[e].get())
@@ -467,7 +479,7 @@ class Ventana_Guardias(ctk.CTkFrame):
         ventana.texto.set(result)
     
     def borrar_pjs(ventana):
-        regex_frame = compile('.*frame.*',dot)
+        regex_frame = compile('.*div.*',dot)
         elementos= list(ventana.personajes.children)
         for i in elementos:
             if regex_frame.match(i) != None:

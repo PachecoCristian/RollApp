@@ -1,14 +1,20 @@
 import customtkinter as ctk
+
 from configuracion import *
+from componentes import *
+
 from DyD_code import *
 
-class Ventana_Puntos_Vida(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
 
+class Ventana_Puntos_Vida(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
+
+        # Colores
+        ventana.theme= theme
 
         # Datos
         ventana.texto = ctk.StringVar()
@@ -18,78 +24,80 @@ class Ventana_Puntos_Vida(ctk.CTkFrame):
         ventana.tipo= ctk.StringVar(value=VALORES_HIT_DICE[1])
 
         # Crear Frame para la clases
-        ventana.clases = ctk.CTkFrame(frame, fg_color="transparent")
+        ventana.clases = Div(frame)
         ventana.clases.pack()
         ventana.crear_clase()
         # Crear Frame para opciones Generales
-        ventana.opciones = ctk.CTkFrame(frame, fg_color="transparent")
-        ventana.opciones.pack(pady=0)
+        ventana.opciones = Div(frame)
+        ventana.opciones.pack()
 
-        frame1= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
-        frame1.pack(side="left", padx=10)
-        ctk.CTkLabel(frame1, text="Mod Constitución").pack()
-        ctk.CTkEntry(frame1, textvariable= ventana.mod_con).pack()
-        frame2= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
+        frame1 = Div(ventana.opciones)
+        frame1.pack(side="left", padx=10, pady=5)
+        Texto(frame1, text="Mod Constitución").pack()
+        Entrada(frame1, variable= ventana.mod_con).pack()
+        frame2 = Div(ventana.opciones)
         frame2.pack(side="left", padx=10)
-        ctk.CTkLabel(frame2, text="Mod Vida por Nivel").pack()
-        ctk.CTkEntry(frame2, textvariable= ventana.mod_lv).pack()
-        frame3= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
+        Texto(frame2, text="Mod Vida por Nivel").pack()
+        Entrada(frame2, variable= ventana.mod_lv).pack()
+        frame3 = Div(ventana.opciones)
         frame3.pack(side="left", padx=10)
-        ctk.CTkLabel(frame3, text="Mod Vida").pack()
-        ctk.CTkEntry(frame3, textvariable= ventana.mod_static).pack()
-        frame4= ctk.CTkFrame(frame, fg_color="transparent")
-        frame4.pack()
-        ctk.CTkLabel(frame4, text="Valor HD").pack()
-        ctk.CTkOptionMenu(frame4,values=VALORES_HIT_DICE, variable= ventana.tipo).pack()
+        Texto(frame3, text="Mod Vida").pack()
+        Entrada(frame3, variable= ventana.mod_static).pack()
+        frame4 = Div(frame)
+        frame4.pack(pady=10)
+        Texto(frame4, text="Valor HD").pack()
+        DropDown(frame4, VALORES_HIT_DICE, theme, ventana.tipo).pack()
 
         # Crear Frame para los botones
-        ventana.botones = ctk.CTkFrame(frame, fg_color="transparent")
-        ventana.botones.pack(pady=10)
+        ventana.botones = Div(frame)
+        ventana.botones.pack()
         # Crear los botones
-        ctk.CTkButton(ventana.botones, text= "Añadir Sub-Clase", command= ventana.crear_clase).pack(side="left", padx=10)
-        ctk.CTkButton(ventana.botones, text= "Calcular Vida", command= ventana.calcular_vida).pack(side="left", padx=10)
-        ctk.CTkButton(ventana.botones, text= "Borrar", command= ventana.borrar).pack(side="left", padx=10)
+        Boton(ventana.botones, text= "Añadir Sub-Clase", command= ventana.crear_clase, theme= ventana.theme).pack(side="left", padx=10)
+        Boton(ventana.botones, text= "Calcular Vida", command= ventana.calcular_vida, theme= ventana.theme).pack(side="left", padx=10)
+        Boton(ventana.botones, text= "Borrar", command= ventana.borrar, theme= ventana.theme).pack(side="left", padx=10)
         # Crear Texto
-        ctk.CTkLabel(frame, textvariable=ventana.texto).pack()
+        Texto(frame, variable=ventana.texto).pack()
 
     def crear_clase(ventana):
         frame_clase = ctk.CTkFrame(ventana.clases, fg_color="transparent", border_width=3)
         frame_clase.pack(pady=5, ipadx=5, ipady=5)
 
-        frame1 = ctk.CTkFrame(frame_clase, fg_color="transparent")
+        frame1 = Div(frame_clase)
         frame1.pack()
         # Crear lista de Clases (Añadiendo personalizada)
         clases = ["Personalizado"]
         clases+= (list(DYD_HIT_DICE))
-        ctk.CTkOptionMenu(frame1,values=clases).pack(side="left", padx=10)
+        DropDown(frame1, clases, ventana.theme).pack(side="left", padx=10)
         # Crear Espacio para el Hit Dice
-        ctk.CTkLabel(frame1, text="Hit Dice").pack(side="left", padx=5)
-        ctk.CTkEntry(frame1).pack(side="left")
+        Texto(frame1, text="Hit Dice").pack(side="left", padx=5)
+        Entrada(frame1).pack(side="left")
 
-        frame2 = ctk.CTkFrame(frame_clase, fg_color="transparent")
+        frame2 = Div(frame_clase)
         frame2.pack()
         # Crear Espacio Numero de niveles
-        ctk.CTkLabel(frame2, text="Niveles").pack(side="left", padx=5)
-        ctk.CTkEntry(frame2).pack(side="left")
+        Texto(frame2, text="Niveles").pack(side="left", padx=5)
+        Entrada(frame2).pack(side="left")
         # Crear Espacio para el Modificador de Vida
-        ctk.CTkLabel(frame2, text="Mod Vida por nivel").pack(side="left", padx=5)
-        ctk.CTkEntry(frame2).pack(side="left")
+        Texto(frame2, text="Mod Vida por nivel").pack(side="left", padx=5)
+        Entrada(frame2).pack(side="left")
 
     def calcular_vida(ventana):
         clases = []
 
         regex_frame = compile('.*frame.*',dot)
-        regex_optionmenu = compile('.*optionmenu.*',dot)
-        regex_entry = compile('.*entry.*',dot)
+        regex_div= compile('.*div.*',dot)
+        regex_optionmenu = compile('.*dropdown.*',dot)
+        regex_entry = compile('.*entrada.*',dot)
         # Obtener los valores de las difentes clases
         for i1 in ventana.clases.children:
             if regex_frame.match(i1) != None:
                 clase= []
                 for i2 in ventana.clases.children[i1].children:
-                    if regex_frame.match(i2) != None:
+                    if regex_div.match(i2) != None:
                         for i3 in ventana.clases.children[i1].children[i2].children:
-                            if regex_entry.match(i3) != None or regex_optionmenu.match(i3):
-                                clase.append(ventana.clases.children[i1].children[i2].children[i3].get())
+                            if regex_entry.match(i3) != None or regex_optionmenu.match(i3)!= None:
+                                componente= ventana.clases.children[i1].children[i2].children[i3]
+                                clase.append(componente.get())
                 clases.append(clase)
         mod_con= 0
         mod_nivel= 0

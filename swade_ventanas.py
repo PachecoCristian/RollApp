@@ -1,20 +1,24 @@
 import customtkinter as ctk
+
 from configuracion import *
+from componentes import *
+
 from swade_code import *
 
 import os
 
 # Ventanas de Aplicaciones
-class Ventana_Probalidades(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Probalidades(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
-
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
         frame.columnconfigure((0,1,2), weight=1, uniform="a")
         frame.rowconfigure((0,1,2,3,4), weight=1, uniform="a")
+
+        # Colores
+        ventana.theme= theme
 
         # Datos
         ventana.valor = ctk.StringVar(value= "4")
@@ -24,20 +28,20 @@ class Ventana_Probalidades(ctk.CTkFrame):
         ventana.resultado = ctk.StringVar(value= "Probabilidad: ")
 
         # Componentes
-        ctk.CTkLabel(frame, text= "Valor Objetivo").grid(column=0, row=0, padx=10, pady=5)
-        ctk.CTkEntry(frame, textvariable=  ventana.valor).grid(column=2, row=0, padx=10, pady=5)
+        Texto(frame, text= "Valor Objetivo").grid(column=0, row=0, padx=10, pady=5)
+        Entrada(frame, variable=  ventana.valor).grid(column=2, row=0, padx=10, pady=5)
 
-        ctk.CTkLabel(frame, text=  "Dado 1").grid(column=0, row=1, padx=10, pady=5)
-        ctk.CTkLabel(frame, text=  "Dado 2").grid(column=1, row=1, padx=10, pady=5)
-        ctk.CTkLabel(frame, text=  "Modificador").grid(column=2, row=1, padx=10, pady=5)
+        Texto(frame, text=  "Dado 1").grid(column=0, row=1, padx=10, pady=5)
+        Texto(frame, text=  "Dado 2").grid(column=1, row=1, padx=10, pady=5)
+        Texto(frame, text=  "Modificador").grid(column=2, row=1, padx=10, pady=5)
 
-        ctk.CTkComboBox(frame, values= SWADE_DADOS, variable= ventana.dado1).grid(column=0, row=2, padx=10, pady=5)
-        ctk.CTkComboBox(frame, values= SWADE_DADOS, variable= ventana.dado2).grid(column=1, row=2, padx=10, pady=5)
-        ctk.CTkEntry(frame, textvariable=  ventana.extra).grid(column=2, row=2, padx=10, pady=5)
+        DropDown(frame, values= SWADE_DADOS, variable= ventana.dado1, theme=ventana.theme).grid(column=0, row=2, padx=10, pady=5)
+        DropDown(frame, values= SWADE_DADOS, variable= ventana.dado2, theme=ventana.theme).grid(column=1, row=2, padx=10, pady=5)
+        Entrada(frame, variable=  ventana.extra).grid(column=2, row=2, padx=10, pady=5)
 
-        ctk.CTkButton(frame, text="Calcular", command=ventana.calcular_prob).grid(column=0, columnspan=3, row=3, padx=10, pady=5)
+        Boton(frame, text="Calcular", command=ventana.calcular_prob, theme=ventana.theme).grid(column=0, columnspan=3, row=3, padx=10, pady=5)
 
-        ctk.CTkLabel(frame, textvariable= ventana.resultado).grid(column=0, columnspan=3, row=4, padx=10, pady=5)
+        Texto(frame, variable= ventana.resultado).grid(column=0, columnspan=3, row=4, padx=10, pady=5)
 
     def calcular_prob(ventana):
         resultado = 0
@@ -56,13 +60,15 @@ class Ventana_Probalidades(ctk.CTkFrame):
 
         ventana.resultado.set(f"Probabilidad: {resultado}%")
 
-class Ventana_Dados_Salvajes(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Dados_Salvajes(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
+
+        # Colores
+        ventana.theme= theme
 
         # Datos
         ventana.ruta = ctk.StringVar()
@@ -71,11 +77,11 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
 
         # Componentes
             # Frame para poner mensajes y alertas
-        ventana.mensaje1 = ctk.CTkFrame(frame, corner_radius=0, fg_color="transparent")
+        ventana.mensaje1= Div(frame)
         ventana.mensaje1.pack(padx=10, pady=5)
         ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
             # Frame para botones y el checkbox
-        ventana.opciones = ctk.CTkFrame(frame, corner_radius=0, fg_color="transparent")
+        ventana.opciones= Div(frame)
         ventana.opciones.pack()
         ventana.opciones_multiples()
         
@@ -129,9 +135,9 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
                 return
             
             # Crear Frame para los mensajes de los difreenetes archivos
-            ventana.textos = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            ventana.textos= Div(ventana.opciones)
             ventana.textos.pack()
-            ctk.CTkLabel(ventana.textos, text="")
+            Texto(ventana.textos, text="")
 
             # Recorer los elemntos en la Carpeta Origen
             carpeta=  os.scandir(ventana.ruta.get())
@@ -139,7 +145,7 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
                 # Se recoren los archivos exeptuando "desktop.ini" que es pripio de windows
                 if i.is_file() and i.name != "desktop.ini":
                     # Se crea un frame para poner el mensaje
-                    frame = ctk.CTkFrame(ventana.textos, fg_color="transparent")
+                    frame= Div(ventana.textos)
                     frame.pack(padx=10, pady=5)
                     fichero= i.name+" : "
                     # Se ejcuta el cambio de valores. 
@@ -199,18 +205,18 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
         for texto in textos:
             # Si es el primero, siempre es un mensaje normal
             if texto == textos[0]:
-                ctk.CTkLabel(frame, text=texto ).pack(side="left")
+                Texto(frame, text=texto ).pack(side="left")
             # Al resto se les camba el color dependiendo 
             else:
                 match tipo:
                     case "error":
-                        ctk.CTkLabel(frame, text=texto, text_color="red").pack(side="left")
+                        Texto(frame, text=texto, text_color="red").pack(side="left")
                     case "correcto":
-                        ctk.CTkLabel(frame, text=texto, text_color="green").pack(side="left")
+                        Texto(frame, text=texto, text_color="green").pack(side="left")
                     case "alerta":
-                        ctk.CTkLabel(frame, text=texto, text_color="yellow").pack(side="left")
+                        Texto(frame, text=texto, text_color="yellow").pack(side="left")
                     case _:
-                        ctk.CTkLabel(frame, text=texto ).pack(side="left")
+                        Texto(frame, text=texto ).pack(side="left")
 
     def borrar_opciones(ventana):
         elementos= list(ventana.opciones.children)
@@ -231,31 +237,33 @@ class Ventana_Dados_Salvajes(ctk.CTkFrame):
             ventana.borrar_opciones()
 
             ventana.mensaje(ventana.mensaje1,[""])
-            botones = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            botones= Div(ventana.opciones)
             botones.columnconfigure((0,1,2), weight=1, uniform="a")
-            botones.pack()
-            ctk.CTkCheckBox(botones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).grid(column=0, row=0, padx=10, pady=5)
-            ctk.CTkButton(botones, text="Carpeta Origen", command=ventana.ruta_origen).grid(column=1, row=0, padx=10, pady=5)
-            ctk.CTkButton(botones, text="Carpeta Destino", command=ventana.ruta_destino).grid(column=2, row=0, padx=10, pady=5)
-            ctk.CTkButton(ventana.opciones, text="Cambiar Dados", command=ventana.gestion_fichas).pack(pady=5)
-            ventana.mensaje2 = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            botones.pack()        
+            CheckBox(botones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples, theme=ventana.theme).grid(column=0, row=0, padx=10, pady=5)
+            Boton(botones, text="Carpeta Origen", command=ventana.ruta_origen, theme=ventana.theme).grid(column=1, row=0, padx=10, pady=5)
+            Boton(botones, text="Carpeta Destino", command=ventana.ruta_destino, theme=ventana.theme).grid(column=2, row=0, padx=10, pady=5)
+            Boton(ventana.opciones, text="Cambiar Dados", command=ventana.gestion_fichas, theme=ventana.theme).pack(pady=5)
+            ventana.mensaje2= Div(ventana.opciones)
             ventana.mensaje2.pack(padx=10, pady=5)
-            ctk.CTkLabel(ventana.mensaje2, text="").pack()
+            Texto(ventana.mensaje2, text="").pack()
             
         else:
             ventana.borrar_opciones()
 
             ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
-            ctk.CTkCheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).pack(side="left", padx=10, pady=5)
-            ctk.CTkButton(ventana.opciones, text="Cambiar Dados", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
+            CheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples, theme=ventana.theme).pack(side="left", padx=10, pady=5)
+            Boton(ventana.opciones, text="Cambiar Dados", command=ventana.gestion_fichas, theme=ventana.theme).pack(side="left", padx=10, pady=5)
    
-class Ventana_Habilidades(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Habilidades(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
+        
+        # Colores
+        ventana.theme= theme
 
         # Datos
         ventana.ruta = ctk.StringVar()
@@ -265,11 +273,11 @@ class Ventana_Habilidades(ctk.CTkFrame):
 
         # Componentes
             # Frame para poner mensajes y alertas
-        ventana.mensaje1 = ctk.CTkFrame(frame, corner_radius=0, fg_color="transparent")
+        ventana.mensaje1= Div(frame)
         ventana.mensaje1.pack(padx=10, pady=5)
         ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
             # Frame para botones y el checkbox
-        ventana.opciones = ctk.CTkFrame(frame, corner_radius=0, fg_color="transparent")
+        ventana.opciones= Div(frame)
         ventana.opciones.pack()
         ventana.opciones_multiples()
             
@@ -323,9 +331,9 @@ class Ventana_Habilidades(ctk.CTkFrame):
                 return
             
             # Crear Frame para los mensajes de los difreenetes archivos
-            ventana.textos = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            ventana.textos= Div(ventana.opciones)
             ventana.textos.pack()
-            ctk.CTkLabel(ventana.textos, text="")
+            Texto(ventana.textos, text="")
 
             # Recorer los elemntos en la Carpeta Origen
             carpeta=  os.scandir(ventana.ruta.get())
@@ -333,7 +341,7 @@ class Ventana_Habilidades(ctk.CTkFrame):
                 # Se recoren los archivos exeptuando "desktop.ini" que es pripio de windows
                 if i.is_file() and i.name != "desktop.ini":
                     # Se crea un frame para poner el mensaje
-                    frame = ctk.CTkFrame(ventana.textos, fg_color="transparent")
+                    frame= Div(ventana.textos)
                     frame.pack(padx=10, pady=5)
                     fichero= i.name+" : "
                     # Se ejcuta el cambio de valores. 
@@ -398,23 +406,24 @@ class Ventana_Habilidades(ctk.CTkFrame):
         for texto in textos:
             # Si es el primero, siempre es un mensaje normal
             if texto == textos[0]:
-                ctk.CTkLabel(frame, text=texto ).pack(side="left")
+                Texto(frame, text=texto ).pack(side="left")
             # Al resto se les camba el color dependiendo 
             else:
                 match tipo:
                     case "error":
-                        ctk.CTkLabel(frame, text=texto, text_color="red").pack(side="left")
+                        Texto(frame, text=texto, text_color="red").pack(side="left")
                     case "correcto":
-                        ctk.CTkLabel(frame, text=texto, text_color="green").pack(side="left")
+                        Texto(frame, text=texto, text_color="green").pack(side="left")
                     case "alerta":
-                        ctk.CTkLabel(frame, text=texto, text_color="yellow").pack(side="left")
+                        Texto(frame, text=texto, text_color="yellow").pack(side="left")
                     case _:
-                        ctk.CTkLabel(frame, text=texto ).pack(side="left")
+                        Texto(frame, text=texto ).pack(side="left")
      
     def borrar_opciones(ventana):
         elementos = list(ventana.opciones.children)
         for i in elementos :
                 ventana.opciones.children[i].destroy()
+    
     def opciones_multiples(ventana):
         # Borrar Datos
         ventana.ruta.set("")
@@ -429,43 +438,45 @@ class Ventana_Habilidades(ctk.CTkFrame):
             ventana.borrar_opciones()
 
             ventana.mensaje(ventana.mensaje1,[""])
-            botones = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            botones= Div(ventana.opciones)
             botones.columnconfigure((0,1), weight=1, uniform="a")
             botones.rowconfigure((0,1), weight=1, uniform="a")
             botones.pack()
-            ctk.CTkCheckBox(botones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).grid(column=0, row=0, padx=10, pady=5)
-            ctk.CTkCheckBox(botones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice).grid(column=1, row=0, padx=10, pady=5)
-            ctk.CTkButton(botones, text="Carpeta Origen", command=ventana.ruta_origen).grid(column=0, row=1, padx=10, pady=5)
-            ctk.CTkButton(botones, text="Carpeta Destino", command=ventana.ruta_destino).grid(column=1, row=1, padx=10, pady=5)
-            ctk.CTkButton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas).pack(pady=5)
-            ventana.mensaje2 = ctk.CTkFrame(ventana.opciones, corner_radius=0, fg_color="transparent")
+            CheckBox(botones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples, theme=ventana.theme).grid(column=0, row=0, padx=10, pady=5)
+            CheckBox(botones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice, theme=ventana.theme).grid(column=1, row=0, padx=10, pady=5)
+            Boton(botones, text="Carpeta Origen", command=ventana.ruta_origen, theme=ventana.theme).grid(column=0, row=1, padx=10, pady=5)
+            Boton(botones, text="Carpeta Destino", command=ventana.ruta_destino, theme=ventana.theme).grid(column=1, row=1, padx=10, pady=5)
+            Boton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas, theme=ventana.theme).pack(pady=5)
+            ventana.mensaje2= Div(ventana.opciones)
             ventana.mensaje2.pack(padx=10, pady=5)
-            ctk.CTkLabel(ventana.mensaje2, text="").pack()
+            Texto(ventana.mensaje2, text="").pack()
         else:
             ventana.borrar_opciones()
 
             ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
-            ctk.CTkCheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples).pack(side="left", padx=10, pady=5)
-            ctk.CTkCheckBox(ventana.opciones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice).pack(side="left", padx=10, pady=5)
-            ctk.CTkButton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas).pack(side="left", padx=10, pady=5)
+            CheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples, theme=ventana.theme).pack(side="left", padx=10, pady=5)
+            CheckBox(ventana.opciones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice, theme=ventana.theme).pack(side="left", padx=10, pady=5)
+            CheckBox(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas, theme=ventana.theme).pack(side="left", padx=10, pady=5)
             
-class Ventana_Avances(ctk.CTkFrame):
-    def __init__(ventana, master):
-        super().__init__(master= master)
-
+class Ventana_Avances(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
         # Crear la (Sub-ventana)
-        frame = ctk.CTkFrame(ventana)
-        frame.place(relx=0.5, rely=0.5, anchor="center")
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
+
+        # Colores
+        ventana.theme= theme
 
         # Datos
         ventana.aumentos_actu = ctk.StringVar()
         ventana.n_aumentos = ctk.StringVar()
 
         # Componetes
-        ctk.CTkLabel(frame, textvariable= ventana.aumentos_actu).pack(padx=10, pady=5)
+        Texto(frame, variable= ventana.aumentos_actu).pack(padx=10, pady=5)
         ventana.aumentos_actuales()
-        ctk.CTkEntry(frame, textvariable= ventana.n_aumentos ).pack(padx=10, pady=5)
-        ctk.CTkButton(frame, text="Cambiar Aumentos", command=ventana.cambiar_aumentos).pack( padx=10, pady=5)
+        Entrada(frame, variable= ventana.n_aumentos ).pack(padx=10, pady=5)
+        Boton(frame, text="Cambiar Aumentos", command=ventana.cambiar_aumentos, theme=ventana.theme).pack( padx=10, pady=5)
     
     def aumentos_actuales(ventana):
         archivo= abrir_js(SWADE_FILE)
@@ -478,7 +489,7 @@ class Ventana_Avances(ctk.CTkFrame):
             case _:
                 respuesta= f" a {valor} aumentos por nivel"
                 
-        ventana.aumentos_actu.set(f"Actualmente está {respuesta}")
+        ventana.aumentos_actu.set(f"Actualmente está{respuesta}")
     
     def cambiar_aumentos(ventana):
         # Compobar que el valor sea correcto
