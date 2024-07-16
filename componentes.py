@@ -12,7 +12,7 @@ class Frame_Menu(ctk.CTkFrame):
         i=0
         for opc in opciones:
             menu.rowconfigure(i, weight=1, uniform="b")
-            Boton_Menu(menu, text= opc[0], command= opc[1], theme=opc[2]).grid(column=0, row=i, padx =10, pady=15)
+            Boton_Menu(menu, text= opc[0], command= opc[1], theme=opc[2]).grid(column=0, row=i, padx =10, pady=5)
             i+=1
 
     def colocar(self):
@@ -51,7 +51,7 @@ class Boton_Menu(Boton):
         self.configure(corner_radius=0)
 
 class Texto(ctk.CTkLabel):
-    def __init__(self, master, text=None, variable=None, font=None):
+    def __init__(self, master, text=None, variable=None, font=None, text_color=None):
         super().__init__(master)
         if text != None:
             self.configure(text= text)
@@ -59,8 +59,9 @@ class Texto(ctk.CTkLabel):
             self.configure(font= font)
         if variable != None:
             self.configure(textvariable= variable)
-        
-    pass
+        if text_color != None:
+            self.configure(text_color= text_color)
+
 
 class Entrada(ctk.CTkEntry):
     def __init__(self, master, variable=None):
@@ -74,4 +75,18 @@ class DropDown(ctk.CTkOptionMenu):
         if variable != None:
             self.configure(variable= variable)
 
-    pass
+class ComboBox (ctk.CTkComboBox):
+    def __init__(self, master, values, theme, variable=None):
+        super().__init__(master, values=values, fg_color=THEMES[theme][1], button_color=THEMES[theme][1], button_hover_color=THEMES[theme][2])
+        if variable != None:
+            self.configure(variable= variable)
+
+class CheckBox (ctk.CTkCheckBox):
+    def __init__(self, master, theme, text=None, variable=None, command=None ):
+        super().__init__(master, fg_color= THEMES[theme][1], hover_color= THEMES[theme][1])
+        if text != None:
+            self.configure(text= text)
+        if variable != None:
+            self.configure(variable= variable)
+        if command != None:
+            self.configure(command= command)
