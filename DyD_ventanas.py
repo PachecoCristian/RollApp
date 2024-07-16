@@ -67,7 +67,7 @@ class Ventana_Puntos_Vida(Frame_Ventana):
         # Crear lista de Clases (Añadiendo personalizada)
         clases = ["Personalizado"]
         clases+= (list(DYD_HIT_DICE))
-        DropDown(frame1, clases, ventana.theme).pack(side="left", padx=10)
+        ComboBox(frame1, clases, ventana.theme).pack(side="left", padx=10)
         # Crear Espacio para el Hit Dice
         Texto(frame1, text="Hit Dice").pack(side="left", padx=5)
         Entrada(frame1).pack(side="left")
@@ -86,7 +86,7 @@ class Ventana_Puntos_Vida(Frame_Ventana):
 
         regex_frame = compile('.*frame.*',dot)
         regex_div= compile('.*div.*',dot)
-        regex_optionmenu = compile('.*dropdown.*',dot)
+        regex_optionmenu = compile('.*combobox.*',dot)
         regex_entry = compile('.*entrada.*',dot)
         # Obtener los valores de las difentes clases
         for i1 in ventana.clases.children:
