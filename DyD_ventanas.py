@@ -24,38 +24,31 @@ class Ventana_Puntos_Vida(Frame_Ventana):
         ventana.tipo= ctk.StringVar(value=VALORES_HIT_DICE[1])
 
         # Crear Frame para la clases
-        #ventana.clases = ctk.CTkFrame(frame, fg_color="transparent")
         ventana.clases = Div(frame)
         ventana.clases.pack()
         ventana.crear_clase()
         # Crear Frame para opciones Generales
-        #ventana.opciones = ctk.CTkFrame(frame, fg_color="transparent")
         ventana.opciones = Div(frame)
         ventana.opciones.pack()
 
-        #frame1= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
         frame1 = Div(ventana.opciones)
         frame1.pack(side="left", padx=10, pady=5)
         Texto(frame1, text="Mod Constitución").pack()
         Entrada(frame1, variable= ventana.mod_con).pack()
-        #frame2= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
         frame2 = Div(ventana.opciones)
         frame2.pack(side="left", padx=10)
         Texto(frame2, text="Mod Vida por Nivel").pack()
         Entrada(frame2, variable= ventana.mod_lv).pack()
-        #frame3= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
         frame3 = Div(ventana.opciones)
         frame3.pack(side="left", padx=10)
         Texto(frame3, text="Mod Vida").pack()
         Entrada(frame3, variable= ventana.mod_static).pack()
-        #frame4= ctk.CTkFrame(ventana.opciones, fg_color="transparent")
         frame4 = Div(frame)
         frame4.pack(pady=10)
         Texto(frame4, text="Valor HD").pack()
         DropDown(frame4, VALORES_HIT_DICE, theme, ventana.tipo).pack()
 
         # Crear Frame para los botones
-        #ventana.botones = ctk.CTkFrame(frame, fg_color="transparent")
         ventana.botones = Div(frame)
         ventana.botones.pack()
         # Crear los botones
@@ -69,7 +62,6 @@ class Ventana_Puntos_Vida(Frame_Ventana):
         frame_clase = ctk.CTkFrame(ventana.clases, fg_color="transparent", border_width=3)
         frame_clase.pack(pady=5, ipadx=5, ipady=5)
 
-        #frame1 = ctk.CTkFrame(frame_clase, fg_color="transparent")
         frame1 = Div(frame_clase)
         frame1.pack()
         # Crear lista de Clases (Añadiendo personalizada)
@@ -80,7 +72,6 @@ class Ventana_Puntos_Vida(Frame_Ventana):
         Texto(frame1, text="Hit Dice").pack(side="left", padx=5)
         Entrada(frame1).pack(side="left")
 
-        #frame2 = ctk.CTkFrame(frame_clase, fg_color="transparent")
         frame2 = Div(frame_clase)
         frame2.pack()
         # Crear Espacio Numero de niveles
