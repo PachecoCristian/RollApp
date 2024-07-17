@@ -54,7 +54,11 @@ class Ventana_Probalidades(Frame_Ventana):
             resultado += expode_prob((valor-extra), dado1)
         
         if dado2 != 0:
-            resultado += expode_prob((valor-extra), dado2)
+            if resultado == 0:
+                resultado += expode_prob((valor-extra), dado2)
+            else:
+                resultado += (1-resultado)*expode_prob((valor-extra), dado2)
+        
 
         resultado = round(resultado*100,2)
 

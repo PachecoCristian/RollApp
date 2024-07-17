@@ -13,7 +13,7 @@ def expode_prob(valor, dado):
     (12,4): 3/4 + (1/4 * 3/4) + ([1/4*1/4] * 3/4) = 3/4 + 3/16 + (1/16 * 3/4)= 
     (8,6): 5/6 + (1/6 x* 1/6) = 5/6 + 1/36 = 30/36 + 1/36 = 31/36 = 
     """    
-    div,resto= divmod(valor, dado)
+    div, resto= divmod(valor, dado)
 
     # Posibilidades de fallar Como Texto
     """ 
