@@ -63,8 +63,8 @@ SWADE_POWER_SKILLS={
 "Weird Science":"Ciencia extraña",
 }
 
-FICHA_HABILIDADES_ENTRENADAS= "D:/Archivos/Juegos/Roll/Sistemas/SW/SWADE-habilidades-entrenadas.json"
-FICHA_HABILIDADES_SIN_ENTRENAR= "D:/Archivos/Juegos/Roll/Sistemas/SW/SWADE-habilidades-sin-entrenar.json"
+FICHA_HABILIDADES_ENTRENADAS= "D:/Archivos/Juegos/Roll/Sistemas/SWADE/SWADE-habilidades-entrenadas.json"
+FICHA_HABILIDADES_SIN_ENTRENAR= "D:/Archivos/Juegos/Roll/Sistemas/SWADE/SWADE-habilidades-sin-entrenar.json"
 
 RANDOM_NAME=[
 "A",

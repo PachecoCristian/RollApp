@@ -460,7 +460,7 @@ class Ventana_Habilidades(Frame_Ventana):
             ventana.mensaje(ventana.mensaje1,["Selecciona el archivo"])
             CheckBox(ventana.opciones, text="Varios Ficheros" , variable=ventana.multiples, command=ventana.opciones_multiples, theme=ventana.theme).pack(side="left", padx=10, pady=5)
             CheckBox(ventana.opciones, text="Actualizar Dado Salvage" , variable=ventana.wild_dice, theme=ventana.theme).pack(side="left", padx=10, pady=5)
-            CheckBox(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas, theme=ventana.theme).pack(side="left", padx=10, pady=5)
+            Boton(ventana.opciones, text="Cargar Habilidades", command=ventana.gestion_fichas, theme=ventana.theme).pack(side="left", padx=10, pady=5)
             
 class Ventana_Avances(Frame_Ventana):
     def __init__(ventana, master, theme):
