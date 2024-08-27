@@ -113,6 +113,18 @@ def conversor_l_gal(n, es_l):
         resultado= round(resultado, 2)
     return resultado
 
+def conversor_c_f(degree, es_c):
+    # Celsius = (Fahrenheit - 32) / 1.8
+    resultado=0
+    if es_c:
+        resultado= (degree / (5/9)) + 32
+        resultado= round(resultado, 1)
+    else:
+        resultado = (degree - 32) * (5/9)
+        resultado= round(resultado, 1)
+    return resultado
+
+
 def calcula_guardias(horas_personajes):
     total= 0
     n_peronajes = len(horas_personajes)

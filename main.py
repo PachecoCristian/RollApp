@@ -25,7 +25,8 @@ class App(ctk.CTk):
             ["Nombre Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Nombre, "any"), "any"],
             ["Lugar Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Lugar, "any"), "any"],
             ["Personaje Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Personaje, "any"), "any"],
-            ["Conversores", lambda: app.cambiar_ventana(anyr.Ventana_Conversor, "any"), "any"],
+            ["Distancia / Peso", lambda: app.cambiar_ventana(anyr.Ventana_Conversor, "any"), "any"],
+            ["Volumen/ Temperatura", lambda: app.cambiar_ventana(anyr.Ventana_Conversor2, "any"), "any"],
             ["Tiempo de Guardia", lambda: app.cambiar_ventana(anyr.Ventana_Guardias, "any"), "any"],
         ]
         swade_apps=[
