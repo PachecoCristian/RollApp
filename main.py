@@ -15,6 +15,10 @@ class App(ctk.CTk):
         app.iconbitmap("d20-highlight.ico")
         app.geometry(f"{tamaño[0]}x{tamaño[1]}")
         app.active_menu= False
+        app.open_menu= False
+    
+    # Cambio de tamaño del menu
+        app.bind("<Configure>", app.comprueba_tamaño)
 
     # Definir la grid
         app.columnconfigure(0, weight=MENU_RATIO[0], uniform="a")
@@ -55,7 +59,6 @@ class App(ctk.CTk):
         app.menu_desplazable= Frame_MenuD(app, lista_menu)
         # Calcular posición del menú movil
         app.update()
-        #tam_ventana= app.winfo_width()
         rel= MENU_RATIO[0]/( MENU_RATIO[0] + MENU_RATIO[1] )
         pos_menu=int((-(app.winfo_width()*rel))+MENU_DESP)
         # Coloar el Menu desplazable
@@ -92,13 +95,11 @@ class App(ctk.CTk):
             app.active_menu = True
             app.animar()
             
-
     def cerrar_menu(app,*args):
         if not app.active_menu:
             app.active_menu = True
             app.animar_inv()
             
-    
     def animar(app):
         if app.menu_desplazable.winfo_x()<= -MENU_DESP:
             distancia= app.menu_desplazable.winfo_x()+ MENU_DESP
@@ -106,17 +107,31 @@ class App(ctk.CTk):
             app.after(10, app.animar)
         else:
             app.active_menu = False
+            app.open_menu= True
 
     def animar_inv(app):
         rel= MENU_RATIO[0]/( MENU_RATIO[0] + MENU_RATIO[1] )
-        pos_menu=int((-(app.winfo_width()*rel))+MENU_DESP)
+        pos_menu=int((-(app.winfo_width()*rel)) + MENU_DESP) +1
 
-        if app.menu_desplazable.winfo_x()>= pos_menu+MENU_DESP:
+        if app.menu_desplazable.winfo_x()>= pos_menu :
             distancia= app.menu_desplazable.winfo_x()-MENU_DESP
             app.menu_desplazable.place(x=distancia, rely=0, relheight=1, relwidth=0.25)
             app.after(10, app.animar_inv)
         else:
             app.active_menu = False
+            app.open_menu= False
+
+    def comprueba_tamaño(app, evento):
+        #print("Cambio tamaño")
+        if evento.widget == app:
+            rel= MENU_RATIO[0]/( MENU_RATIO[0] + MENU_RATIO[1] )
+            pos_menu=int((-(app.winfo_width()*rel)) + MENU_DESP) -1
+
+            if app.open_menu:
+                app.menu_desplazable.place(x=0, rely=0, relheight=1, relwidth=0.25)
+            else:
+                app.menu_desplazable.place(x=pos_menu, rely=0, relheight=1, relwidth=0.25)
+                
 
 
 # Ejecutar el codigo para crear la ventanas
