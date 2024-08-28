@@ -47,7 +47,6 @@ class Div(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master, corner_radius= 0, fg_color="transparent")
 
-
 class Boton(ctk.CTkButton):
     def __init__(self, master, text, command, theme):
         super().__init__(master, text= text, command=command, fg_color=THEMES[theme][1], hover_color=THEMES[theme][2])
@@ -72,7 +71,6 @@ class Texto(ctk.CTkLabel):
             self.configure(textvariable= variable)
         if text_color != None:
             self.configure(text_color= text_color)
-
 
 class Entrada(ctk.CTkEntry):
     def __init__(self, master, variable=None):
