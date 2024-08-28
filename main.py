@@ -1,3 +1,5 @@
+import sys
+
 import customtkinter as ctk
 
 from configuracion import *
@@ -26,26 +28,26 @@ class App(ctk.CTk):
         app.rowconfigure(0, weight=1, uniform="a")
 
         any_apps=[
-            ["Nombre Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Nombre, "any"), "any"],
-            ["Lugar Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Lugar, "any"), "any"],
-            ["Personaje Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Personaje, "any"), "any"],
-            ["Distancia / Peso", lambda: app.cambiar_ventana(anyr.Ventana_Conversor, "any"), "any"],
-            ["Volumen/ Temperatura", lambda: app.cambiar_ventana(anyr.Ventana_Conversor2, "any"), "any"],
-            ["Tiempo de Guardia", lambda: app.cambiar_ventana(anyr.Ventana_Guardias, "any"), "any"],
+            ["Nombre Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Nombre,           "any_apps", "any"), "any"],
+            ["Lugar Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Lugar,             "any_apps", "any"), "any"],
+            ["Personaje Aleatorio", lambda: app.cambiar_ventana(anyr.Ventana_Personaje,     "any_apps", "any"), "any"],
+            ["Distancia / Peso", lambda: app.cambiar_ventana(anyr.Ventana_Conversor,        "any_apps", "any"),  "any"],
+            ["Volumen/ Temperatura", lambda: app.cambiar_ventana(anyr.Ventana_Conversor2,   "any_apps", "any"), "any"],
+            ["Tiempo de Guardia", lambda: app.cambiar_ventana(anyr.Ventana_Guardias,        "any_apps", "any"), "any"],
         ]
         swade_apps=[
-            ["Probabilidad Dado SWADE", lambda: app.cambiar_ventana(sw.Ventana_Probalidades, "swade"), "swade"],
-            ["Atributo como Dado Salvaje", lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes, "swade"), "swade"],
-            ["Poner Habilidades Base", lambda: app.cambiar_ventana(sw.Ventana_Habilidades, "swade"), "swade"],
-            ["Aumentos por Rango", lambda: app.cambiar_ventana(sw.Ventana_Avances, "swade"),"swade"], 
+            ["Probabilidad Dado SWADE", lambda: app.cambiar_ventana(sw.Ventana_Probalidades,        "swade_apps",  "swade"), "swade"],
+            ["Atributo como Dado Salvaje", lambda: app.cambiar_ventana(sw.Ventana_Dados_Salvajes,   "swade_apps",  "swade"), "swade"],
+            ["Poner Habilidades Base", lambda: app.cambiar_ventana(sw.Ventana_Habilidades,          "swade_apps",  "swade"), "swade"],
+            ["Aumentos por Rango", lambda: app.cambiar_ventana(sw.Ventana_Avances,                  "swade_apps",  "swade"),"swade"], 
         ]
         dyd_apps=[
-            ["Puntos de Vida", lambda: app.cambiar_ventana(dyd.Ventana_Puntos_Vida, "dyd"), "dyd"],
+            ["Puntos de Vida", lambda: app.cambiar_ventana(dyd.Ventana_Puntos_Vida,                 "dyd_apps",  "dyd"), "dyd"],
         ]
         lista_menu= [
             ["Any System", lambda: app.cambiar_menu(any_apps, "any"), "any"],
             ["Swade", lambda: app.cambiar_menu(swade_apps, "swade"), "swade"],
-            ["Any System", lambda: app.cambiar_menu(dyd_apps, "dyd"), "dyd"],
+            ["D&D", lambda: app.cambiar_menu(dyd_apps, "dyd"), "dyd"],
         ]
             
     #Componentes
@@ -67,9 +69,32 @@ class App(ctk.CTk):
         app.menu_desplazable.bind("<Enter>", app.desplegar_menu)
         # Como no adminte bind_all no se puede cerrar al salir del menu
     
+    # Activar la ultima aplicación
+        text = app.leer_ultima_app()
+        if text != "":
+            partes = text[11:].split(";")
+
+            miniapp = partes[0][8:-2].strip()
+            miniapp = miniapp.replace("swade_ventanas", "sw")
+            miniapp = miniapp.replace("any_ventanas", "anyr")
+            miniapp = miniapp.replace("DyD_ventanas", "dyd")
+
+            menu= partes[1].strip()
+            theme= partes[2].strip()
+
+            if miniapp != "" and menu != "" and theme!="":
+                try:
+                    app.cambiar_menu(eval(menu), theme)
+                except:
+                    print("Menu Incorrecto") 
+                try:
+                    app.cambiar_ventana(eval(miniapp), menu, theme)
+                except:
+                    print("App Incorrecta")        
+
     # Ejecución
         app.mainloop()
-    
+
     def cambiar_menu(app, lista, theme):
         # Eliminar el menú que estubiera antes
         elemntos= list(app.menu.children)
@@ -81,25 +106,28 @@ class App(ctk.CTk):
 
         # Cerrar el menú desplegable
         app.cerrar_menu()
-    
-    def cambiar_ventana(app, funcion, theme):
+
+    def cambiar_ventana(app, funcion, menu, theme):
         # Eliminar las ventas que estubieran antes
         for i in app.grid_slaves(column=1, row=0):
             i.destroy()
 
         ventana = funcion(app, theme)
         ventana.grid(column=1, row=0, sticky="snew")
-    
+
+        # Guardar la ultima app usada
+        app.escribir_ultima_app(f"{funcion}; {menu}; {theme}")
+
     def desplegar_menu(app,*args):
         if not app.active_menu:
             app.active_menu = True
             app.animar()
-            
+
     def cerrar_menu(app,*args):
         if not app.active_menu:
             app.active_menu = True
             app.animar_inv()
-            
+
     def animar(app):
         if app.menu_desplazable.winfo_x()<= -MENU_DESP:
             distancia= app.menu_desplazable.winfo_x()+ MENU_DESP
@@ -131,7 +159,39 @@ class App(ctk.CTk):
                 app.menu_desplazable.place(x=0, rely=0, relheight=1, relwidth=0.25)
             else:
                 app.menu_desplazable.place(x=pos_menu, rely=0, relheight=1, relwidth=0.25)
-                
+
+    def leer_ultima_app(app):
+        try:
+            with open("config.txt", encoding="utf8") as f:
+                lines = f.readlines()
+            text= ""
+            i=0
+            ultima= False
+            for i in range(len(lines)):
+                if lines[i].strip().startswith("Ultima App:"):
+                    text = lines[i]
+                    ultima = True
+                    break
+            if not ultima:
+                    print("No ultima app")
+            return text
+        except:
+            f= open("config.txt","w", encoding='utf-8')
+            f.write("")
+            return ""
+    
+    def escribir_ultima_app(app, actuapp):
+        with open("config.txt", encoding="utf8") as f:
+                lines = f.readlines()
+        with open("config.txt","w", encoding='utf-8') as f:
+            ultima= False
+            for i in range(len(lines)):
+                if lines[i].strip().startswith("Ultima App:"):
+                    lines[i]= f"Ultima App:{actuapp}"
+                    ultima= True
+            if not ultima:
+                lines.append(f"Ultima App:{actuapp}")
+            f.writelines(lines)
 
 
 # Ejecutar el codigo para crear la ventanas
