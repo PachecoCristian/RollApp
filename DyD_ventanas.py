@@ -246,22 +246,42 @@ class Ventana_Speed(Frame_Ventana):
         return div
     
     def calcular_speeds(ventana, columna):
+        speed = 0
+        feets_minute = 0 
+        miles_hour = 0 
+        miles_day_8 = 0 
+        miles_day_24 = 0
         match columna:
             case 1:
-                velocidad = float(ventana.speed.get())
-                speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,1)
+                try:
+                    velocidad = float(ventana.speed.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,1)
+                except:
+                    pass      
             case 2:
-                velocidad = float(ventana.feets_minute.get())
-                speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,2)
+                try:
+                    velocidad = float(ventana.feets_minute.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,2)
+                except:
+                    pass  
             case 3:
-                velocidad = float(ventana.miles_hour.get())
-                speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,3)
+                try:
+                    velocidad = float(ventana.miles_hour.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,3)
+                except:
+                    pass  
             case 4:
-                velocidad = float(ventana.miles_day_8.get())
-                speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,4)
+                try:
+                    velocidad = float(ventana.miles_day_8.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,4)
+                except:
+                    pass  
             case 5:
-                velocidad = float(ventana.miles_day_24.get())
-                speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,5)
+                try:
+                    velocidad = float(ventana.miles_day_24.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,5)
+                except:
+                    pass  
         
         ventana.speed.set(round(speed,1))
         ventana.feets_minute.set(round(feets_minute,1))
