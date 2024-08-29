@@ -1,6 +1,8 @@
 MENU_RATIO=[1,3]
 MENU_DESP=10
 
+FICHERO_CONFIG= "config.txt"
+
 THEMES={
     # Nombre    : Boton Menu,   Boton Normal,   Boton Hover     Fondo
     "any"       :["#808080",    "#666666",      "#4D4D4D",      "#1A1A1A"],

@@ -72,7 +72,7 @@ class App(ctk.CTk):
     
     # Activar la ultima aplicación
         text = app.leer_ultima_app()
-        if text != "":
+        if text :
             partes = text[11:].split(";")
 
             miniapp = partes[0][8:-2].strip()
@@ -162,38 +162,49 @@ class App(ctk.CTk):
                 app.menu_desplazable.place(x=pos_menu, rely=0, relheight=1, relwidth=0.25)
 
     def leer_ultima_app(app):
-        try:
-            with open("config.txt", encoding="utf8") as f:
-                lines = f.readlines()
-            text= ""
-            i=0
-            ultima= False
-            for i in range(len(lines)):
-                if lines[i].strip().startswith("Ultima App:"):
-                    text = lines[i]
-                    ultima = True
-                    break
-            if not ultima:
-                    print("No ultima app")
-            return text
-        except:
-            f= open("config.txt","w", encoding='utf-8')
-            f.write("")
-            return ""
+        info = app.leer_config("Ultima App")
+        return info
     
     def escribir_ultima_app(app, actuapp):
-        with open("config.txt", encoding="utf8") as f:
-                lines = f.readlines()
-        with open("config.txt","w", encoding='utf-8') as f:
-            ultima= False
-            for i in range(len(lines)):
-                if lines[i].strip().startswith("Ultima App:"):
-                    lines[i]= f"Ultima App:{actuapp}"
-                    ultima= True
-            if not ultima:
-                lines.append(f"Ultima App:{actuapp}")
-            f.writelines(lines)
+        app.escribir_config("Ultima App", actuapp)
 
+    def leer_config(app, linea):
+        text= ""
+        i=0
+        line_found= False
+
+        try:
+            with open(FICHERO_CONFIG, encoding="utf8") as f:
+                lines = f.readlines()
+        except:
+            lines=""
+
+        for i in range(len(lines)):
+            if lines[i].strip().startswith(f"{linea}:"):
+                text = lines[i]
+                line_found = True
+                break
+        if not line_found:
+                text= False
+        return text
+
+    def escribir_config(app, linea, texto):
+        line_found= False
+        try:
+            with open(FICHERO_CONFIG, encoding="utf8") as f:
+                lines = f.readlines()
+        except:
+            lines=[]
+
+        with open(FICHERO_CONFIG,"w", encoding='utf-8') as f:
+            for i in range(len(lines)):
+                if lines[i].strip().startswith(f"{linea}:"):
+                    lines[i]= f"{linea}:{texto}"
+                    line_found= True
+            if not line_found:
+                lines.append(f"{linea}:{texto}")
+            f.writelines(lines)
+            
 
 # Ejecutar el codigo para crear la ventanas
 if __name__== "__main__":
