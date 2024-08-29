@@ -43,6 +43,7 @@ class App(ctk.CTk):
         ]
         dyd_apps=[
             ["Puntos de Vida", lambda: app.cambiar_ventana(dyd.Ventana_Puntos_Vida,                 "dyd_apps",  "dyd"), "dyd"],
+            ["Velocidades", lambda: app.cambiar_ventana(dyd.Ventana_Speed,                       "dyd_apps",  "dyd"), "dyd"],
         ]
         lista_menu= [
             ["Any System", lambda: app.cambiar_menu(any_apps, "any"), "any"],

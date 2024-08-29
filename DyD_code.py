@@ -41,9 +41,51 @@ def calcula_multiclase(niveles, mod_con, mod_nivel, mod_estatico, tipo=None):
     hp += int(mod_estatico)
     return hp
 
+def calcula_speed(velocidad, tipo):
+    speed = 0
+    feets_minute = 0
+    miles_hour = 0
+    miles_day_8 = 0
+    miles_day_24 = 0
+
+    match tipo:
+        case 1: 
+            # Velocidad = speed
+            speed= velocidad
+            feets_minute= velocidad * 10
+            miles_hour= (feets_minute * 60)/5280
+            miles_day_8= miles_hour * 8
+            miles_day_24= miles_hour * 24
+        case 2: 
+            # Velocidad = feets_minute
+            speed= velocidad/10 
+            speed, feets_minute, miles_hour, miles_day_8, miles_day_24= calcula_speed(speed, 1)
+        case 3: 
+            # Velocidad = miles_hour
+            speed= (velocidad/10)/60*5280
+            speed, feets_minute, miles_hour, miles_day_8, miles_day_24= calcula_speed(speed, 1)
+        case 4: 
+            # Velocidad = miles_day_8
+            speed= ((velocidad/10)/60*5280)/8
+            speed, feets_minute, miles_hour, miles_day_8, miles_day_24= calcula_speed(speed, 1)
+        case 5: 
+            # Velocidad = miles_day_24
+            speed= ((velocidad/10)/60*5280)/24
+            speed, feets_minute, miles_hour, miles_day_8, miles_day_24= calcula_speed(speed, 1)
+    
+    return speed, feets_minute, miles_hour, miles_day_8, miles_day_24
+
+    
+
 if __name__== "__main__":
     # Pruebas
     #print(calcula_hp(dado=10, nivel=6, mod_con=2, mod_nivel=0, mod_estatico=0, inicial= False))
     #niveles= [(5,"Fighter"),(3,"Cleric")]
     #print(calcula_multiclase(niveles, mod_con=2, mod_nivel=0, mod_estatico=0))
+
+    #print(calcula_speed(20,1))  # OK 
+    #print(calcula_speed(150,2))  # OK
+    #print(calcula_speed(3.41,3)) # OK
+    #print(calcula_speed(36.36,4)) # Ok
+    #print(calcula_speed(81.82,5)) # OK
     pass
