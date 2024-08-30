@@ -124,7 +124,6 @@ def conversor_c_f(degree, es_c):
         resultado= round(resultado, 1)
     return resultado
 
-
 def calcula_guardias(horas_personajes):
     total= 0
     n_peronajes = len(horas_personajes)

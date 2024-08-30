@@ -169,7 +169,6 @@ class App(ctk.CTk):
         escribir_config(ULTIMA_APP, actuapp)
 
 # Funiones Genericas
-
 def leer_config(linea):
     text= ""
     i=0

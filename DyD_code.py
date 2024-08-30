@@ -75,7 +75,6 @@ def calcula_speed(velocidad, tipo):
     
     return speed, feets_minute, miles_hour, miles_day_8, miles_day_24
 
-    
 
 if __name__== "__main__":
     # Pruebas

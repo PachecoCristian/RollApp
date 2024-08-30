@@ -420,8 +420,7 @@ class Ventana_Conversor2(Frame_Ventana):
             # 3º Linea
         Entrada(frame_temp, variable= ventana.c).grid(column=0, row=3)
         Texto(frame_temp, text="Celsius").grid(column=1, row=3)
-
-    
+  
     def calcular_cantidad(ventana):
         if ventana.es_l.get():
             gal= 0

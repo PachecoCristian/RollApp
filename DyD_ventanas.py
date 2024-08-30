@@ -236,8 +236,6 @@ class Ventana_Speed(Frame_Ventana):
         ventana.e5.configure(width=75)
         ventana.e5.bind('<Return>', lambda args: ventana.calcular_speeds(5))
         ventana.e5.pack()
-        
-
     
     def texto_tabla(ventana, texto, fila, columna):
         div = Div(ventana.tabla)

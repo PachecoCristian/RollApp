@@ -508,9 +508,7 @@ class Ventana_Avances(Frame_Ventana):
                         respuesta= f" a {valor} aumentos por nivel"
                 
                 ventana.aumentos_actu.set(f"Actualmente está{respuesta}")
-            
-            
-    
+             
     def cambiar_aumentos(ventana):
         # Compobar que el valor sea correcto
         if ventana.n_aumentos.get().lower() == "d" or ventana.n_aumentos.get().lower() == "default":
