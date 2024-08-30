@@ -3,6 +3,11 @@ MENU_DESP=10
 
 FICHERO_CONFIG= "config.txt"
 
+ULTIMA_APP= "Ultima App"
+
+SWADE_FILE= "Fichero SWADE"
+FICHA_HABILIDADES_SIN_ENTRENAR= "Ficha con Habilidades sin Entrenar"
+
 THEMES={
     # Nombre    : Boton Menu,   Boton Normal,   Boton Hover     Fondo
     "any"       :["#808080",    "#666666",      "#4D4D4D",      "#1A1A1A"],
@@ -23,8 +28,6 @@ WILD_DICE_EDGES=[
     "Master",
     "MAESTRO"
 ]
-
-SWADE_FILE="D:/Archivos/Juegos/Foundry/Sav/Data/systems/swade/swade.js"
 
 SWADE_BASE_SKILLS={
 "Academics":"Humanidades",
@@ -65,8 +68,7 @@ SWADE_POWER_SKILLS={
 "Weird Science":"Ciencia extraña",
 }
 
-FICHA_HABILIDADES_ENTRENADAS= "D:/Archivos/Juegos/Roll/Sistemas/SWADE/SWADE-habilidades-entrenadas.json"
-FICHA_HABILIDADES_SIN_ENTRENAR= "D:/Archivos/Juegos/Roll/Sistemas/SWADE/SWADE-habilidades-sin-entrenar.json"
+
 
 RANDOM_NAME=[
 "A",

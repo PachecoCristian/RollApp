@@ -1,5 +1,7 @@
 from configuracion import *
 
+from main import leer_config, escribir_config
+
 from fractions import Fraction
 import json
 import os
@@ -152,17 +154,22 @@ def añadir_habilidades(ficha):
     # Habilidades ahora marca cuales tiene y cuales no
 
     # Recorrer las skills de la ficha sin habilidades
-    archivo = abrir_ficha(FICHA_HABILIDADES_SIN_ENTRENAR)[0]
-    for i in archivo["items"]:
-        if i["type"] == "skill": 
-            for habilidad in habilidades:
-                if habilidades[habilidad] == False:
-                    regex=compile(r".*"+habilidad+r".*", dot)
-                    if regex.match( i["system"]["description"] ) != None:
-                        #print(f"anadir {i["name"]}")
-                        ficha["items"].append(i)
-    
-    return ficha
+    ruta= leer_config(FICHA_HABILIDADES_SIN_ENTRENAR)
+    if not ruta :
+        escribir_config(FICHA_HABILIDADES_SIN_ENTRENAR,"")
+        return False
+    else:
+        archivo = abrir_ficha(ruta)[0]
+        for i in archivo["items"]:
+            if i["type"] == "skill": 
+                for habilidad in habilidades:
+                    if habilidades[habilidad] == False:
+                        regex=compile(r".*"+habilidad+r".*", dot)
+                        if regex.match( i["system"]["description"] ) != None:
+                            #print(f"anadir {i["name"]}")
+                            ficha["items"].append(i)
+        
+        return ficha
  
 def guardar_ficha(ficha, ruta):
     # Dejar el fichero en la ruta indicada

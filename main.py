@@ -73,7 +73,7 @@ class App(ctk.CTk):
     # Activar la ultima aplicación
         text = app.leer_ultima_app()
         if text :
-            partes = text[11:].split(";")
+            partes = text.split(";")
 
             miniapp = partes[0][8:-2].strip()
             miniapp = miniapp.replace("swade_ventanas", "sw")
@@ -162,33 +162,37 @@ class App(ctk.CTk):
                 app.menu_desplazable.place(x=pos_menu, rely=0, relheight=1, relwidth=0.25)
 
     def leer_ultima_app(app):
-        info = app.leer_config("Ultima App")
+        info = leer_config(ULTIMA_APP)
         return info
     
     def escribir_ultima_app(app, actuapp):
-        app.escribir_config("Ultima App", actuapp)
+        escribir_config(ULTIMA_APP, actuapp)
 
-    def leer_config(app, linea):
-        text= ""
-        i=0
-        line_found= False
+# Funiones Genericas
 
-        try:
-            with open(FICHERO_CONFIG, encoding="utf8") as f:
-                lines = f.readlines()
-        except:
-            lines=""
+def leer_config(linea):
+    text= ""
+    i=0
+    line_found= False
 
-        for i in range(len(lines)):
-            if lines[i].strip().startswith(f"{linea}:"):
-                text = lines[i]
-                line_found = True
-                break
-        if not line_found:
-                text= False
-        return text
+    try:
+        with open(FICHERO_CONFIG, encoding="utf8") as f:
+            lines = f.readlines()
+    except:
+        lines=""
 
-    def escribir_config(app, linea, texto):
+    for i in range(len(lines)):
+        if lines[i].strip().startswith(f"{linea}:"):
+            text = lines[i]
+            text= text.replace(f"{linea}:","")
+            text= text.replace("\n","")
+            line_found = True
+            break
+    if not line_found:
+            text= False
+    return text
+
+def escribir_config(linea, texto):
         line_found= False
         try:
             with open(FICHERO_CONFIG, encoding="utf8") as f:
@@ -203,6 +207,9 @@ class App(ctk.CTk):
                     line_found= True
             if not line_found:
                 lines.append(f"{linea}:{texto}")
+            for line in range(len(lines)):
+                if lines[line][-1:] != "\n":
+                    lines[line] +="\n"
             f.writelines(lines)
             
 

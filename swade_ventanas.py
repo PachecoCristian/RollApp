@@ -317,7 +317,7 @@ class Ventana_Habilidades(Frame_Ventana):
                 fichero= os.path.split(ruta)[1]+": "
                 # Se ejcuta el cambio de valores. 
                     # Devuelbe un mensaje de Error o si se a compleatdo correctamente
-                mensaje= ventana.añadir_habilidades(ruta)
+                mensaje= ventana.añadir_habi(ruta)
                 # Se muestra el mensaje en el Texto superior de la ventana
                 ventana.mensaje(ventana.mensaje1,[fichero,mensaje[0]],mensaje[1])
             except AttributeError:
@@ -350,7 +350,7 @@ class Ventana_Habilidades(Frame_Ventana):
                     fichero= i.name+" : "
                     # Se ejcuta el cambio de valores. 
                         # Devuelbe un mensaje de Error o si se a compleatdo correctamente
-                    mensaje = ventana.añadir_habilidades(i.path)
+                    mensaje = ventana.añadir_habi(i.path)
                     # Se muestra el mensaje en el frame que se acaba de crear
                     ventana.mensaje(frame,[fichero, mensaje[0]],mensaje[1])
             
@@ -360,7 +360,7 @@ class Ventana_Habilidades(Frame_Ventana):
             ventana.mensaje(ventana.mensaje1,["Cambiando archivos de: "])
             ventana.mensaje(ventana.mensaje2,["Dejando ficheros en: "])
 
-    def añadir_habilidades(ventana, ruta):
+    def añadir_habi(ventana, ruta):
          # Comprobar que es una ficha valida
         try:
             datos = abrir_ficha(ruta)
@@ -370,34 +370,37 @@ class Ventana_Habilidades(Frame_Ventana):
         # Añadir habilidades basicas
         ficha= añadir_habilidades(datos[0])
 
-        # Crear la ruta para guardar el fichero 
-        if not ventana.multiples.get():
-            # Al lado de la antigua si es individual
-            ruta_final= os.path.split(os.path.abspath(ruta))[0]
+        if not ficha:
+            return ("No hay ficha de referencia con Habilidades Sin Entrenar", "error")
         else:
-            # Ruta indicada ecaso de muchas
-            ruta_final= os.path.abspath(ventana.carpeta.get())
+            # Crear la ruta para guardar el fichero 
+            if not ventana.multiples.get():
+                # Al lado de la antigua si es individual
+                ruta_final= os.path.split(os.path.abspath(ruta))[0]
+            else:
+                # Ruta indicada ecaso de muchas
+                ruta_final= os.path.abspath(ventana.carpeta.get())
 
-        # Añadir Nombre del fichero= "Nombre del Personaje".json
-        # Cambiar dados salvages
-        if ventana.wild_dice:
-            ficha= cambiar_dados(datos[0])
-            ruta_final= f"{ruta_final}\\{ficha[0]["name"]}(Dados).json"
-        else:
-            ruta_final= f"{ruta_final}\\{ficha[0]["name"]}.json"
+            # Añadir Nombre del fichero= "Nombre del Personaje".json
+            # Cambiar dados salvages
+            if ventana.wild_dice:
+                ficha= cambiar_dados(datos[0])
+                ruta_final= f"{ruta_final}\\{ficha[0]["name"]}(Dados).json"
+            else:
+                ruta_final= f"{ruta_final}\\{ficha[0]["name"]}.json"
 
-        # Guardar la ficha
-        mensaje= guardar_ficha(ficha[0], ruta_final)
+            # Guardar la ficha
+            mensaje= guardar_ficha(ficha[0], ruta_final)
 
-         # Comprobar No es comodin
-        if not datos[1]:
-            return ("El no necesita el resto de habilidades", "alerta")
-        
-        # Comprobar si ventaja que cambia dados
-        if ficha[1]:
-            return ("El personaje tiene modificación de Dado Salvage", "alerta")
-        
-        return (mensaje, "correcto")
+            # Comprobar No es comodin
+            if not datos[1]:
+                return ("El no necesita el resto de habilidades", "alerta")
+            
+            # Comprobar si ventaja que cambia dados
+            if ficha[1]:
+                return ("El personaje tiene modificación de Dado Salvage", "alerta")
+            
+            return (mensaje, "correcto")
     
     # Funciones Visuales
     def mensaje(ventana, frame, textos, tipo=""):
@@ -483,17 +486,30 @@ class Ventana_Avances(Frame_Ventana):
         Boton(frame, text="Cambiar Aumentos", command=ventana.cambiar_aumentos, theme=ventana.theme).pack( padx=10, pady=5)
     
     def aumentos_actuales(ventana):
-        archivo= abrir_js(SWADE_FILE)
-        valor= valor_avances(archivo)
-        match valor:
-            case "f":
-                respuesta= " un valor personalizado"
-            case "d":
-                respuesta= " el valor por defecto de SAWDE"
-            case _:
-                respuesta= f" a {valor} aumentos por nivel"
+        ruta = leer_config(SWADE_FILE)
+        archivo= False
+        if not ruta :
+            ventana.aumentos_actu.set(f"No se ha selecionada fichero")
+            escribir_config(SWADE_FILE,"")
+        else :
+            try:
+                archivo= abrir_js(ruta)
+            except:
+                ventana.aumentos_actu.set(f"Fichero swade.js no encontrado")
+
+            if archivo:
+                valor= valor_avances(archivo)
+                match valor:
+                    case "f":
+                        respuesta= " un valor personalizado"
+                    case "d":
+                        respuesta= " el valor por defecto de SAWDE"
+                    case _:
+                        respuesta= f" a {valor} aumentos por nivel"
                 
-        ventana.aumentos_actu.set(f"Actualmente está{respuesta}")
+                ventana.aumentos_actu.set(f"Actualmente está{respuesta}")
+            
+            
     
     def cambiar_aumentos(ventana):
         # Compobar que el valor sea correcto
@@ -505,17 +521,22 @@ class Ventana_Avances(Frame_Ventana):
             except:
                 ventana.aumentos_actu.set("El valor debe ser un numero")
         # Modificar el fichero
-        ruta = SWADE_FILE
-        archivo = abrir_js(ruta)
-        archivo = cambiar_avance(archivo, valor)
-        guardar_archivo(archivo, ruta) 
-        # Actualizar el numero de avances actuales
-        avances = valor_avances(archivo)
-        match avances:
-            case "f":
-                avances= "Error"
-            case "d":
-                avances= "Defecto"
+        #ruta = SWADE_FILE
+        ruta = leer_config(SWADE_FILE)
+        if not ruta :
+            ventana.aumentos_actu.set(f"No se ha selecionada fichero")
+            escribir_config(SWADE_FILE,"")
+        else :
+            archivo = abrir_js(ruta)
+            archivo = cambiar_avance(archivo, valor)
+            guardar_archivo(archivo, ruta) 
+            # Actualizar el numero de avances actuales
+            avances = valor_avances(archivo)
+            match avances:
+                case "f":
+                    avances= "Error"
+                case "d":
+                    avances= "Defecto"
 
-        ventana.aumentos_actu.set(f"Valor cambiado a {avances}")
+            ventana.aumentos_actu.set(f"Valor cambiado a {avances}")
       
