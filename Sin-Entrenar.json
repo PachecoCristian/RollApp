@@ -1,0 +1,1087 @@
+{
+  "name": "Habilidades Sin Entrenar",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "attributes": {
+      "agility": {
+        "die": {
+          "sides": 4,
+          "modifier": 0
+        },
+        "wild-die": {
+          "sides": 6
+        }
+      },
+      "smarts": {
+        "die": {
+          "sides": 4,
+          "modifier": 0
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "animal": false
+      },
+      "spirit": {
+        "die": {
+          "sides": 4,
+          "modifier": 0
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "unShakeBonus": 0
+      },
+      "strength": {
+        "die": {
+          "sides": 4,
+          "modifier": 0
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "encumbranceSteps": 0
+      },
+      "vigor": {
+        "die": {
+          "sides": 4,
+          "modifier": 0
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "unStunBonus": 0,
+        "soakBonus": 0,
+        "bleedOut": {
+          "modifier": 0,
+          "ignoreWounds": false
+        }
+      }
+    },
+    "stats": {
+      "speed": {
+        "runningDie": 6,
+        "runningMod": 0,
+        "value": 6
+      },
+      "toughness": {
+        "value": 0,
+        "armor": 0,
+        "modifier": 0
+      },
+      "parry": {
+        "value": 0,
+        "shield": 0,
+        "modifier": 0
+      },
+      "size": 0
+    },
+    "details": {
+      "autoCalcToughness": true,
+      "autoCalcParry": true,
+      "archetype": "",
+      "appearance": "",
+      "notes": "",
+      "goals": "",
+      "biography": {
+        "value": ""
+      },
+      "species": {
+        "name": ""
+      },
+      "currency": 500,
+      "wealth": {
+        "die": 6,
+        "modifier": 0,
+        "wild-die": 6
+      },
+      "conviction": {
+        "value": 0,
+        "active": false
+      }
+    },
+    "powerPoints": {
+      "general": {
+        "value": 0,
+        "max": 0
+      }
+    },
+    "fatigue": {
+      "value": 0,
+      "max": 2,
+      "ignored": 0
+    },
+    "woundsOrFatigue": {
+      "ignored": 0
+    },
+    "advances": {
+      "mode": "expanded",
+      "value": 0,
+      "rank": "Novice",
+      "details": "",
+      "list": []
+    },
+    "status": {
+      "isShaken": false,
+      "isDistracted": false,
+      "isVulnerable": false,
+      "isStunned": false,
+      "isEntangled": false,
+      "isBound": false,
+      "isIncapacitated": false
+    },
+    "initiative": {
+      "hasHesitant": false,
+      "hasLevelHeaded": false,
+      "hasImpLevelHeaded": false,
+      "hasQuick": false
+    },
+    "additionalStats": {},
+    "bennies": {
+      "value": 0,
+      "max": 3
+    },
+    "wounds": {
+      "value": 0,
+      "max": 3,
+      "ignored": 0
+    }
+  },
+  "prototypeToken": {
+    "name": "Habilidades Sin Entrenar",
+    "displayName": 30,
+    "actorLink": true,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 50,
+    "bar1": {
+      "attribute": "wounds"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "barbrawl": {
+        "resourceBars": {
+          "bar1": {
+            "order": 0,
+            "id": "bar1",
+            "attribute": "wounds",
+            "mincolor": "#FF0000",
+            "maxcolor": "#320000",
+            "position": "bottom-inner",
+            "otherVisibility": 0,
+            "ownerVisibility": 50,
+            "gmVisibility": -1,
+            "hideFull": false,
+            "hideEmpty": true,
+            "hideCombat": false,
+            "hideNoCombat": false,
+            "indentLeft": null,
+            "indentRight": null,
+            "shareHeight": false,
+            "style": "user",
+            "label": "",
+            "invert": false,
+            "invertDirection": false,
+            "subdivisions": null,
+            "subdivisionsOwner": false,
+            "fgImage": "",
+            "bgImage": "",
+            "opacity": null
+          }
+        }
+      }
+    },
+    "randomImg": false
+  },
+  "items": [
+    {
+      "name": "Apostar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.9Wn329A9exFIgV4z"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/rolling-dices.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Gambling</em></p><hr /><p>Familiaridad y dominio de los juegos de azar.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "apostar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089378295,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "Ae71MVbUZg4lCHZF",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Ciencias",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.dkHUPdlDyVldD0hb"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/erlenmeyer.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Science</em></p><hr /><p>Conocimiento de diversas disciplinas científicas, como la biología, química, geología, ingeniería, etc.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "ciencias",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089380647,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "Ln8VcTz4qwKbs3TY",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Conducir",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.Yk8yFVDFGtX6Fejm"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/steering-wheel.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Driving</em></p><hr /><p>La capacidad de controlar y dirigir vehículos terrestres.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "agility",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "conducir",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089383280,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "XXnYq7l4IxLRC2DR",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Disparar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.PJmEwwCfEvqLUzmv"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/crosshair.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Shooting</em></p><hr /><p>Tu precisión con cualquier arma a distancia.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "agility",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "disparar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089389416,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "3FTg5YT7wESd0jTB",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Electrónica",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.jSnMSPo3la2xUwGG"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/circuitry.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Electronics</em></p><hr /><p>El uso de aparatos y sistemas electrónicos.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "electronica",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089392312,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "Pj9pU2KL4FYy0li1",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Humanidades",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.mnzNVAvDUcv9ddaq"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/graduate-cap.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Academics</em></p><hr /><p>Conocimiento de ciencias sociales, artes liberales, literatura, historia, etc.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "humanidades",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089396232,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "uJDPh7Ktw2tl5n9M",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Idioma",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.QLU6SOlzY4Ljf97i"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/talk.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Language</em></p><hr /><p>Conocimiento y dominio de otra lengua específica.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "idioma",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089399161,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "9JPoGNEGSS6VWdg5",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Interpretar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.Z6k5kbaG1f2ADoG9"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/drama-masks.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Performance</em></p><hr /><p>Cantar, bailar, escribir, actuar y otras formas de expresión pública.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "spirit",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "interpretar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089401363,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "A3Yxevo03Q26431f",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Intimidar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.fosPRwKSgf0635a5"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/arrest.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Intimidation</em></p><hr /><p>La capacidad de amedrentar a los demás para que hagan lo que quieres.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "spirit",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "intimidar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089404272,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "o2vi1BJ2RWZaaK8l",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Investigar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.SQ4fVAAg10X2fc4m"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/archive-research.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Research</em></p><hr /><p>Encontrar información escrita en varios tipos de fuentes.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "investigar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089411641,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "mxpUUDbM5T9KCYhD",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Latrocinio",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.WvY3K0oHqnvOBT9u"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/lockpicks.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Thievery</em></p><hr /><p>Trucos de manos, cortar bolsas, forzar cerraduras y otro tipo de empresas turbias.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "agility",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "latrocinio",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089414617,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "LYYVa8x77oD9EamD",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Medicina",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.GPyVIF9RbgrF37eC"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/medical-pack.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Healing</em></p><hr /><p>La capacidad para diagnosticar y curar heridas o enfermedades, así como descifrar pistas forenses.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "medicina",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089418417,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "HDSPkupo9TMFploC",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Ocultismo",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.b6nvq312TTRZyklc"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/curled-tentacle.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Occult</em></p><hr /><p>Conocimiento de sucesos, criaturas, historia y prácticas sobrenaturales.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "ocultismo",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089420889,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "aLeC2Qljnk3U4Krx",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Ordenadores",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.GQtnZbwFwCMfyfFJ"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/computing.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Hacking</em></p><hr /><p>Programación y facilidad para entrar en un sistema de computadoras.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "ordenadores",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089423586,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "BWyEUn3ffVVLRGly",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Pelear",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.mT9DiHHHJQx6e3qp"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/punch.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Fighting</em></p><hr /><p>Dominio del combate cuerpo a cuerpo, con armas o desarmado.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "agility",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "pelear",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089426768,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "32UedfImf5QsWH4r",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Provocar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.hhXvj8xUgq12RXZr"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/confrontation.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Taunt</em></p><hr /><p> Descalificar o engañar a otro, casi siempre como parte de un truco.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "provocar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089428970,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "UPufJ7G84pPLd6wY",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Reparar",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.EPwrzV5j8K2O8tkH"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/spanner.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Repair</em></p><hr /><p>La capacidad de arreglar aparatos mecánicos y electrónicos.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "reparar",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089431667,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "8x7nFMp2TrLR4bFH",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Supervivencia",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.t3fJwaNdvZzQruEO"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/camping-tent.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Survival</em></p><hr /><p>Cómo encontrar agua, comida y cobijo. También, cómo rastrear.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "",
+        "isCoreSkill": false,
+        "swid": "supervivencia",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089433890,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "LXNwspc4f5NvNbVF",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    },
+    {
+      "name": "Tácticas",
+      "type": "skill",
+      "flags": {
+        "core": {
+          "sourceId": "Compendium.world.habilidades.Item.Dp0dgLn9kyUvYtK4"
+        }
+      },
+      "img": "Assets/Deltaruined/Skills/battle-gear.svg",
+      "effects": [],
+      "system": {
+        "description": "<p><em>Battle</em></p><hr /><p>Estrategia, logística, tácticas y comprensión de las operaciones militares. Clave para dirigir una unidad.</p>",
+        "notes": "",
+        "additionalStats": {},
+        "attribute": "smarts",
+        "die": {
+          "sides": 4,
+          "modifier": -2
+        },
+        "wild-die": {
+          "sides": 6
+        },
+        "source": "SWADE RB",
+        "isCoreSkill": false,
+        "swid": "tacticas",
+        "choiceSets": []
+      },
+      "folder": "e2qNTZFZ5btFRqQF",
+      "_stats": {
+        "systemId": "swade",
+        "systemVersion": "3.4.1",
+        "coreVersion": "11.315",
+        "createdTime": 1693632412885,
+        "modifiedTime": 1720089435954,
+        "lastModifiedBy": "AeV9tLXb49T5cVi7"
+      },
+      "_id": "VpJGWWfPIwlI7aqM",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "AeV9tLXb49T5cVi7": 3
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "exportSource": {
+      "world": "deltaruined",
+      "system": "swade",
+      "coreVersion": "11.315",
+      "systemVersion": "3.4.1"
+    }
+  },
+  "_stats": {
+    "systemId": "swade",
+    "systemVersion": "3.4.1",
+    "coreVersion": "11.315",
+    "createdTime": 1720089355673,
+    "modifiedTime": 1720089355673,
+    "lastModifiedBy": "AeV9tLXb49T5cVi7"
+  }
+}
