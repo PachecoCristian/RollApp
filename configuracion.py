@@ -1,3 +1,13 @@
+MENU_RATIO=[1,3]
+MENU_DESP=10
+
+FICHERO_CONFIG= "config.txt"
+
+ULTIMA_APP= "Ultima App"
+
+SWADE_FILE= "Fichero SWADE"
+FICHA_HABILIDADES_SIN_ENTRENAR= "Ficha con Habilidades sin Entrenar"
+
 THEMES={
     # Nombre    : Boton Menu,   Boton Normal,   Boton Hover     Fondo
     "any"       :["#808080",    "#666666",      "#4D4D4D",      "#1A1A1A"],
@@ -18,8 +28,6 @@ WILD_DICE_EDGES=[
     "Master",
     "MAESTRO"
 ]
-
-SWADE_FILE=""
 
 SWADE_BASE_SKILLS={
 "Academics":"Humanidades",
@@ -60,8 +68,7 @@ SWADE_POWER_SKILLS={
 "Weird Science":"Ciencia extraña",
 }
 
-FICHA_HABILIDADES_ENTRENADAS= ""
-FICHA_HABILIDADES_SIN_ENTRENAR= ""
+
 
 RANDOM_NAME=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","N","O","P","R","S","T","U","V","W","X","Y","Z"]
 

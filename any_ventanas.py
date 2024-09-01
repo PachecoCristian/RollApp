@@ -264,10 +264,6 @@ class Ventana_Conversor(Frame_Ventana):
         ventana.oz= ctk.StringVar()
         ventana.es_kg= ctk.BooleanVar(value=False)
 
-        ventana.l= ctk.StringVar()
-        ventana.gal= ctk.StringVar()
-        ventana.es_l= ctk.BooleanVar(value=False)
-
         # Distancia
         frame_distancia= Div(ventana.frame)
         frame_distancia.pack(expand=True, fill="x")
@@ -315,28 +311,6 @@ class Ventana_Conversor(Frame_Ventana):
         frame_p3.pack(expand=True, pady=5)
         Entrada(frame_p3, variable= ventana.kg).pack(side="left")
         Texto(frame_p3, text="Kilos").pack(side="left", padx=10)
-            
-        # Cantidad
-        frame_cantidad= Div(ventana.frame)
-        frame_cantidad.pack(expand=True, fill="x")
-            # Titulo
-        Texto(frame_cantidad, text="Cantidad", font=ctk.CTkFont(size=20)).pack()
-            # 1º linea
-        frame_c1= Div(frame_cantidad)
-        frame_c1.pack(expand=True, pady=5)
-        Entrada(frame_c1, variable= ventana.gal).pack(side="left")
-        Texto(frame_c1, text="Gallon").pack(side="left", padx=10)
-            # 2º Linea
-        frame_c2= Div(frame_cantidad)
-        frame_c2.pack(expand=True, pady=5)
-        ventana.boton_cantidad= Boton(frame_c2, text= "⬇", command= ventana.calcular_cantidad, theme=ventana.theme)
-        ventana.boton_cantidad.pack(side="left")
-        CheckBox(frame_c2, text= "Cambiar", variable=ventana.es_l, command= ventana.cambiar_cantidad, theme=ventana.theme).pack(side="left", padx=10)
-            # 3º Linea
-        frame_c3= Div(frame_cantidad)
-        frame_c3.pack(expand=True, pady=5)
-        Entrada(frame_c3, variable= ventana.l).pack(side="left")
-        Texto(frame_c3, text="Litros").pack(side="left", padx=10)
     
     def calcular_distancia(ventana):
         if ventana.es_m.get():
@@ -391,7 +365,62 @@ class Ventana_Conversor(Frame_Ventana):
             ventana.boton_peso.configure(text="⬆")
         else:
             ventana.boton_peso.configure(text="⬇")
-    
+
+class Ventana_Conversor2(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
+        # Crear la (Sub-ventana)
+        ventana.frame = Frame_Ventana(ventana, theme)
+        ventana.frame.colocar()
+
+        # Colores
+        ventana.theme= theme
+
+        # Datos
+        ventana.l= ctk.StringVar()
+        ventana.gal= ctk.StringVar()
+        ventana.es_l= ctk.BooleanVar(value=False)
+
+        ventana.c= ctk.StringVar()
+        ventana.f= ctk.StringVar()
+        ventana.es_c= ctk.BooleanVar(value=False)
+            
+        # Cantidad
+        frame_cantidad= Div(ventana.frame)
+        frame_cantidad.pack(expand=True, fill="x")
+        frame_cantidad.columnconfigure([0,1], weight=1, uniform="a")
+        frame_cantidad.rowconfigure([0,1,2,3], weight=1, uniform="a")
+            # Titulo
+        Texto(frame_cantidad, text="Cantidad", font=ctk.CTkFont(size=20)).grid(column=0, row=0, columnspan=2)
+            # 1º linea
+        Entrada(frame_cantidad, variable= ventana.gal).grid(column=0, row=1)
+        Texto(frame_cantidad, text="Gallon").grid(column=1, row=1)
+            # 2º Linea
+        ventana.boton_cantidad= Boton(frame_cantidad, text= "⬇", command= ventana.calcular_cantidad, theme=ventana.theme)
+        ventana.boton_cantidad.grid(column=0, row=2)
+        CheckBox(frame_cantidad, text= "Cambiar", variable=ventana.es_l, command= ventana.cambiar_cantidad, theme=ventana.theme).grid(column=1, row=2)
+            # 3º Linea
+        Entrada(frame_cantidad, variable= ventana.l).grid(column=0, row=3)
+        Texto(frame_cantidad, text="Litros").grid(column=1, row=3)
+
+        # Temperatura
+        frame_temp= Div(ventana.frame)
+        frame_temp.pack(expand=True, fill="x")
+        frame_temp.columnconfigure([0,1], weight=1, uniform="a")
+        frame_temp.rowconfigure([0,1,2,3], weight=1, uniform="a")
+            # Titulo
+        Texto(frame_temp, text="Temperatura", font=ctk.CTkFont(size=20)).grid(column=0, row=0, columnspan=2)
+            # 1º linea
+        Entrada(frame_temp, variable= ventana.f).grid(column=0, row=1)
+        Texto(frame_temp, text="Fahrenheit").grid(column=1, row=1)
+            # 2º Linea
+        ventana.boton_temperatura= Boton(frame_temp, text= "⬇", command= ventana.calcular_temperatura, theme=ventana.theme)
+        ventana.boton_temperatura.grid(column=0, row=2)
+        CheckBox(frame_temp, text= "Cambiar", variable=ventana.es_c, command= ventana.cambiar_temperatura, theme=ventana.theme).grid(column=1, row=2)
+            # 3º Linea
+        Entrada(frame_temp, variable= ventana.c).grid(column=0, row=3)
+        Texto(frame_temp, text="Celsius").grid(column=1, row=3)
+  
     def calcular_cantidad(ventana):
         if ventana.es_l.get():
             gal= 0
@@ -415,6 +444,30 @@ class Ventana_Conversor(Frame_Ventana):
             ventana.boton_cantidad.configure(text="⬆")
         else:
             ventana.boton_cantidad.configure(text="⬇")
+
+    def calcular_temperatura(ventana):
+        if ventana.es_c.get():
+            f= 0
+            try:
+                c = float(ventana.c.get()) if ventana.c.get()!= "" else 0
+            except:
+                print("No es un numero")
+            f = conversor_c_f(c, True)
+            ventana.f.set(str(f))
+        else:
+            c= 0
+            try:
+                f = float(ventana.f.get()) if ventana.f.get()!= "" else 0
+            except:
+                print("No es un numero")
+            c = conversor_c_f(f, False)
+            ventana.c.set(str(c))
+
+    def cambiar_temperatura(ventana):
+        if ventana.es_c.get():
+            ventana.boton_temperatura.configure(text="⬆")
+        else:
+            ventana.boton_temperatura.configure(text="⬇")
 
 class Ventana_Guardias(Frame_Ventana):
     def __init__(ventana, master, theme):

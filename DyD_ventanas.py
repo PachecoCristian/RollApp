@@ -129,3 +129,160 @@ class Ventana_Puntos_Vida(Frame_Ventana):
         ventana.mod_con.set("")
         ventana.mod_lv.set("")
         ventana.mod_static.set("")
+
+class Ventana_Speed(Frame_Ventana):
+    def __init__(ventana, master, theme):
+        super().__init__(master= master, theme=theme)
+        # Crear la (Sub-ventana)
+        frame = Frame_Ventana(ventana, theme)
+        frame.colocar()
+
+        # Colores
+        ventana.theme= theme
+
+        # Datos
+        ventana.speed = ctk.StringVar()
+        ventana.feets_minute = ctk.StringVar()
+        ventana.miles_hour = ctk.StringVar()
+        ventana.miles_day_8 = ctk.StringVar()
+        ventana.miles_day_24 = ctk.StringVar()
+
+        # Tabla 
+        ventana.tabla = Div(frame)
+        ventana.tabla.columnconfigure([0], weight=2)
+        ventana.tabla.columnconfigure([1,2,3,4,5], weight=1, uniform="a")
+        ventana.tabla.rowconfigure([0,1,2,3,4,5], weight=1, uniform="a") 
+        ventana.tabla.rowconfigure(6, weight=2) 
+        ventana.tabla.pack()
+
+        # Cabecera
+        ventana.texto_tabla("",0,0)
+        ventana.texto_tabla("Speed",0,1)
+        ventana.texto_tabla("Feet\nPer Minute",0,2)
+        ventana.texto_tabla("Miles\nper Hour",0,3)
+        ventana.texto_tabla("Miles\nper Day (8)",0,4)
+        ventana.texto_tabla("Miles\nper Day (24)",0,5)
+
+        # Filas Estatica
+        ventana.texto_tabla("Crawl (Travel)",1,0)
+        ventana.texto_tabla("5",1,1)
+        ventana.texto_tabla("50",1,2)
+        ventana.texto_tabla("0.6",1,3)
+        ventana.texto_tabla("4.5",1,4)
+        ventana.texto_tabla("13.6",1,5)
+
+        ventana.texto_tabla("Slow Travel",2,0)
+        ventana.texto_tabla("20",2,1)
+        ventana.texto_tabla("200",2,2)
+        ventana.texto_tabla("2.3",2,3)
+        ventana.texto_tabla("18.2",2,4)
+        ventana.texto_tabla("54.6",2,5)
+
+        ventana.texto_tabla("Normal Travel",3,0)
+        ventana.texto_tabla("30",3,1)
+        ventana.texto_tabla("300",3,2)
+        ventana.texto_tabla("3.4",3,3)
+        ventana.texto_tabla("27.3",3,4)
+        ventana.texto_tabla("81.8",3,5)
+
+        ventana.texto_tabla("Fast Travel",4,0)
+        ventana.texto_tabla("40",4,1)
+        ventana.texto_tabla("400",4,2)
+        ventana.texto_tabla("4.6",4,3)
+        ventana.texto_tabla("36.4",4,4)
+        ventana.texto_tabla("109.1",4,5)
+
+        ventana.texto_tabla("Gallop",5,0)
+        ventana.texto_tabla("80",5,1)
+        ventana.texto_tabla("800",5,2)
+        ventana.texto_tabla("9.1",5,3)
+        ventana.texto_tabla("---",5,4)
+        ventana.texto_tabla("---",5,5)
+
+        # Fila dinamica
+        ventana.texto_tabla("Custom",6,0)
+
+        cell1= Div(ventana.tabla)
+        cell1.grid(row=6, column=1, sticky="nsew")
+        ventana.e1= Entrada(cell1, ventana.speed)
+        ventana.e1.configure(width=75)
+        ventana.e1.bind('<Return>', lambda args: ventana.calcular_speeds(1))
+        ventana.e1.pack()
+        
+        cell2= Div(ventana.tabla)
+        cell2.grid(row=6, column=2, sticky="nsew")
+        ventana.e2= Entrada(cell2, ventana.feets_minute)
+        ventana.e2.configure(width=75)
+        ventana.e2.bind('<Return>', lambda args: ventana.calcular_speeds(2))
+        ventana.e2.pack()
+        
+        cell3= Div(ventana.tabla)
+        cell3.grid(row=6, column=3, sticky="nsew")
+        ventana.e3= Entrada(cell3, ventana.miles_hour)
+        ventana.e3.configure(width=75)
+        ventana.e3.bind('<Return>', lambda args: ventana.calcular_speeds(3))
+        ventana.e3.pack()
+        
+        cell4= Div(ventana.tabla)
+        cell4.grid(row=6, column=4, sticky="nsew")
+        ventana.e4= Entrada(cell4, ventana.miles_day_8)
+        ventana.e4.configure(width=75)
+        ventana.e4.bind('<Return>', lambda args: ventana.calcular_speeds(4))
+        ventana.e4.pack()
+        
+        cell5= Div(ventana.tabla)
+        cell5.grid(row=6, column=5, sticky="nsew")
+        ventana.e5= Entrada(cell5, ventana.miles_day_24)
+        ventana.e5.configure(width=75)
+        ventana.e5.bind('<Return>', lambda args: ventana.calcular_speeds(5))
+        ventana.e5.pack()
+    
+    def texto_tabla(ventana, texto, fila, columna):
+        div = Div(ventana.tabla)
+        Texto(div,texto).pack()
+        div.grid(row=fila, column=columna, sticky="nsew")
+        return div
+    
+    def calcular_speeds(ventana, columna):
+        speed = 0
+        feets_minute = 0 
+        miles_hour = 0 
+        miles_day_8 = 0 
+        miles_day_24 = 0
+        match columna:
+            case 1:
+                try:
+                    velocidad = float(ventana.speed.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,1)
+                except:
+                    pass      
+            case 2:
+                try:
+                    velocidad = float(ventana.feets_minute.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,2)
+                except:
+                    pass  
+            case 3:
+                try:
+                    velocidad = float(ventana.miles_hour.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,3)
+                except:
+                    pass  
+            case 4:
+                try:
+                    velocidad = float(ventana.miles_day_8.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,4)
+                except:
+                    pass  
+            case 5:
+                try:
+                    velocidad = float(ventana.miles_day_24.get())
+                    speed, feets_minute, miles_hour, miles_day_8, miles_day_24 = calcula_speed(velocidad,5)
+                except:
+                    pass  
+        
+        ventana.speed.set(round(speed,1))
+        ventana.feets_minute.set(round(feets_minute,1))
+        ventana.miles_hour.set(round(miles_hour,1))
+        ventana.miles_day_8.set(round(miles_day_8,1))
+        ventana.miles_day_24.set(round(miles_day_24,1))

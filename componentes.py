@@ -6,21 +6,32 @@ from configuracion import *
 
 
 class Frame_Menu(ctk.CTkFrame):
-    def __init__(menu, master, opciones):
+    def __init__(menu, master):
         super().__init__(master, fg_color="transparent", corner_radius= 0)
         menu.columnconfigure(0, weight=1, uniform="b")
+    def cargar_botones(menu, opciones):
         i=0
         for opc in opciones:
             menu.rowconfigure(i, weight=1, uniform="b")
-            Boton_Menu(menu, text= opc[0], command= opc[1], theme=opc[2]).grid(column=0, row=i, padx =10, pady=5)
+            Boton_Menu(menu, text= opc[0], command= opc[1], theme=opc[2]).grid(column=0, row=i, sticky="nsew", padx =10, pady=5)
             i+=1
 
     def colocar(self):
         self.grid(column=0, row=0, sticky="snew")
 
+class Frame_MenuD(ctk.CTkFrame):
+    def __init__(menu, master, opciones):
+        super().__init__(master, fg_color="black", corner_radius= 0)
+        menu.columnconfigure(0, weight=1, uniform="b")
+        i=0
+        for opc in opciones:
+            menu.rowconfigure(i, weight=1, uniform="b")
+            Boton_Menu(menu, text= opc[0], command= opc[1], theme=opc[2]).grid(column=0, row=i, sticky="nsew", padx =10, pady=5)
+            i+=1
+
 class Frame_Principal(ctk.CTkFrame):
     def __init__(self, master, ):
-        super().__init__(master, corner_radius= 0, fg_color="black")
+        super().__init__(master, corner_radius= 0)
 
     def colocar(self):
         self.grid(column=1, row=0, sticky="snew")
@@ -35,7 +46,6 @@ class Frame_Ventana(ctk.CTkFrame):
 class Div(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master, corner_radius= 0, fg_color="transparent")
-
 
 class Boton(ctk.CTkButton):
     def __init__(self, master, text, command, theme):
@@ -61,7 +71,6 @@ class Texto(ctk.CTkLabel):
             self.configure(textvariable= variable)
         if text_color != None:
             self.configure(text_color= text_color)
-
 
 class Entrada(ctk.CTkEntry):
     def __init__(self, master, variable=None):
